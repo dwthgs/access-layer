@@ -45,3 +45,7 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
 - **Automatic or pinned updates.** `/v1/` follows the newest 1.x release so
   fixes arrive on their own. A pinned version, with its integrity hash, never
   changes.
+
+### Fixed
+- **The project site answers unknown addresses with a 404 page** and a link
+  home, where it used to show the landing page.

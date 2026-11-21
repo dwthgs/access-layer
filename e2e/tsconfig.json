@@ -1,0 +1,8 @@
+{
+  // The browser tests and their config run in Node, so they get Node's types.
+  // Kept apart from the root config so `process` and friends never type-check
+  // inside the widget source, which runs only in the browser.
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "types": ["node"] },
+  "include": [".", "../playwright.config.ts"]
+}

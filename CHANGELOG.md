@@ -1,0 +1,47 @@
+# Changelog
+
+Changes to AccessLayer that matter to the people who use it: visitors to the
+sites that install it, and the people who install it. Entries describe what
+changed for them.
+
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+and versions follow [Semantic Versioning](https://semver.org/). Every pull
+request adds its line under **Unreleased**; a release renames that section to
+its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
+
+## [Unreleased]
+
+### Added
+- **The widget.** One script tag adds an accessibility button to any website.
+  Visitors get seventeen tools and eight one-click profiles, a skip link, and
+  Ctrl + U to open the panel. Their choices are saved in their own browser and
+  follow them from page to page.
+- **Reading tools.** Text size, line height, letter spacing, text alignment,
+  readable and dyslexia-friendly fonts, read aloud, and a dictionary that
+  defines and spells any word a visitor selects.
+- **Colour and focus tools.** Light, dark and inverted contrast, smart
+  contrast that fixes only the text that fails, saturation, highlighted links,
+  hidden images, and paused motion and video.
+- **Navigation tools.** A larger cursor with a reading mask and guide,
+  tooltips, and a page structure view of headings, landmarks and links.
+- **Page translation.** In the browser where the device can translate, with
+  Google as the fallback where it cannot. Nothing is sent until a visitor
+  picks a language, and a site can turn the fallback off with
+  `data-translate-fallback="off"`, as checkout pages should. A site can also
+  point `data-translate-url` at its own Cloud Translation endpoint.
+- **Private by default.** No request on page load, no analytics and no
+  cookies. The README lists every request the widget can make and when.
+- **Made to fit a site.** Colour, icon, size, language, a different position
+  and offset on phones, your own open button, and the choice of which tools to
+  offer, all set with `data-*` attributes on the script tag or attributes on
+  `<access-layer>`.
+- **Works where sites are strict.** Under `style-src 'self'`, inside apps that
+  move or re-insert the element, and on long pages that keep adding content.
+- **A console instead of an account.** Open `/console/`, shape the widget on a
+  live preview, pick your platform (plain HTML, React, Next.js, Vue, Nuxt,
+  Shopify, WordPress, Wix, Squarespace or Webflow) and copy the code. Nothing
+  is stored: the settings are part of the code, which carries a link that
+  reopens them.
+- **Automatic or pinned updates.** `/v1/` follows the newest 1.x release so
+  fixes arrive on their own. A pinned version, with its integrity hash, never
+  changes.

@@ -1,0 +1,19 @@
+node_modules/
+.DS_Store
+*.log
+.env*
+
+# Built files
+dist/
+dist-app/
+site/
+public/fonts/*.woff2
+
+# Test output
+coverage/
+test-results/
+playwright-report/
+
+# Cloudflare
+.wrangler/
+.dev.vars*

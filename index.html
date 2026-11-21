@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AccessLayer — make room for everyone who visits</title>
+<meta name="description" content="Seventeen accessibility tools and eight one-click profiles in one script tag, served from getaccesslayer.pages.dev. About 40 KB gzipped, no subscription, no tracking, and a console that builds your snippet.">
+<meta name="theme-color" content="#1742c9">
+<link rel="icon" type="image/svg+xml" href="./demo/logo.svg">
+<link rel="stylesheet" href="./demo/site.css">
+<link rel="stylesheet" href="./demo/landing.css">
+<link rel="stylesheet" href="./demo/landing-c.css">
+</head>
+<body class="theme-c">
+
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="AccessLayer, home">
+      <img class="brand-mark" src="./demo/logo.svg" alt="" width="34" height="34">
+      <span class="notranslate" translate="no">AccessLayer</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#profiles">Profiles</a></li>
+        <li><a href="#console">Customize</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#install">Install</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="btn btn-ghost btn-sm nav-widget" data-open-widget aria-label="Open widget">
+      <span data-icon="accessibility"></span>
+      <span class="btn-label">Open widget</span> <kbd aria-hidden="true">Ctrl U</kbd>
+    </button>
+    <a class="btn btn-primary btn-sm" href="/console/">Get started</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================================================================ hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Free for every website <span data-version></span>
+        </p>
+        <h1 id="hero-title" class="hero-title">Make room for <mark>everyone</mark> who visits.</h1>
+        <p class="lead">
+          AccessLayer adds an accessibility button to your site. Visitors open it
+          to translate the page into their language, make text bigger, raise the
+          contrast, switch to a dyslexia-friendly font or pause motion. It's free,
+          with no subscription and no tracking.
+        </p>
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary" data-open-widget>
+            Try it on this page
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </button>
+          <a class="btn btn-ghost" href="/console/">Set up a website</a>
+        </div>
+      </div>
+
+      <div class="hero-stage" aria-label="Live controls for this page" role="region">
+        <span class="blob b1" aria-hidden="true"></span>
+        <span class="blob b2" aria-hidden="true"></span>
+        <div class="stage-card" data-tilt>
+          <div class="stage-head">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span class="stage-title">Try it here</span>
+            <button type="button" class="stage-reset" data-reset hidden>Reset</button>
+          </div>
+          <p class="stage-hint">Pick a profile. The whole page changes, through the real widget.</p>
+          <div class="stage-profiles" data-hero-profiles></div>
+          <div class="stage-active">
+            <p class="stage-label" id="active-label">Turned on</p>
+            <ul class="chips" data-active-list aria-labelledby="active-label" aria-live="polite"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <dl class="stats">
+        <div class="stat reveal" style="--i:0"><dt>Tools</dt><dd data-count="17">17</dd></div>
+        <div class="stat reveal" style="--i:1"><dt>One-click profiles</dt><dd data-count="8">8</dd></div>
+        <div class="stat reveal" style="--i:2"><dt>Gzipped</dt><dd><span data-count="40">40</span><small> KB</small></dd></div>
+        <div class="stat reveal" style="--i:3"><dt>Third-party requests on load</dt><dd data-count="0">0</dd></div>
+        <div class="stat reveal" style="--i:4"><dt>Page languages</dt><dd data-count="193">193</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- =============================================================== tools -->
+  <section class="section" id="tools" aria-labelledby="tools-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="kicker">The tools</p>
+        <h2 id="tools-title">Every tool is live. <span class="muted">Tap one and watch this page change.</span></h2>
+      </div>
+
+      <div class="filters reveal" role="group" aria-label="Filter tools">
+        <span class="filter-pill" aria-hidden="true"></span>
+        <button type="button" class="filter" aria-pressed="true" data-filter="all">All</button>
+        <button type="button" class="filter" aria-pressed="false" data-filter="reading">Reading</button>
+        <button type="button" class="filter" aria-pressed="false" data-filter="seeing">Seeing</button>
+        <button type="button" class="filter" aria-pressed="false" data-filter="navigating">Navigating</button>
+        <button type="button" class="filter" aria-pressed="false" data-filter="understanding">Understanding</button>
+      </div>
+
+      <ul class="tool-grid" data-tool-grid></ul>
+      <p class="tool-note reveal">
+        Multi-step cards move to the next option on each click and wrap back to off, exactly as the
+        panel does. Everything you change here is saved, so it follows you to the
+        <a href="/console/">console</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ profiles -->
+  <section class="section section-tint" id="profiles" aria-labelledby="profiles-title">
+    <div class="wrap profiles-grid">
+      <div class="section-head reveal">
+        <p class="kicker">Profiles</p>
+        <h2 id="profiles-title">Start from the person, <span class="muted">not the settings.</span></h2>
+        <p class="section-lead">
+          Eight presets in the same order as UserWay's, so visitors moving between sites find
+          what they already know. A profile replaces the previous one rather than stacking on
+          it, and choosing it again puts the page back.
+        </p>
+      </div>
+      <div class="profile-board reveal" style="--i:1">
+        <div class="profile-list" data-profile-list role="group" aria-label="Profiles"></div>
+        <div class="profile-detail" data-profile-detail aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================== how -->
+  <section class="section" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="kicker">How it works</p>
+        <h2 id="how-title">Mostly CSS. <span class="muted">Script only where CSS genuinely can't.</span></h2>
+      </div>
+
+      <div class="how-grid">
+        <article class="how-card how-live reveal">
+          <h3>Attributes on <code>&lt;html&gt;</code></h3>
+          <p>
+            Presentation tools are <code>data-mla-*</code> attributes plus one injected stylesheet,
+            so they survive a client-side route change with nothing to re-apply.
+            This is this page's root element, right now:
+          </p>
+          <div class="code">
+            <div class="code-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>document.documentElement</div>
+            <pre data-live-html aria-live="off"></pre>
+          </div>
+        </article>
+
+        <article class="how-card reveal" style="--i:1">
+          <span class="how-icon" data-icon="text"></span>
+          <h3>Measured, not flattened</h3>
+          <p>
+            Bigger text scales each element from its own computed size, so headings stay bigger
+            than body. A blanket <code>font-size: 20px !important</code> is what gets that wrong.
+          </p>
+        </article>
+
+        <article class="how-card reveal" style="--i:2">
+          <span class="how-icon" data-icon="smartContrast"></span>
+          <h3>Contrast that keeps the design</h3>
+          <p>
+            Smart contrast finds each text's real background and moves the colour along its own
+            lightness axis until it passes WCAG 1.4.3. Grey stays grey, just darker.
+          </p>
+          <p class="faint-demo">This line fails at about 2.1:1. Turn on Smart contrast.</p>
+        </article>
+
+        <article class="how-card reveal" style="--i:3">
+          <span class="how-icon" data-icon="shield"></span>
+          <h3>Sealed in a shadow root</h3>
+          <p>
+            The widget is one custom element. Your CSS cannot restyle the panel, and the
+            widget's own <code>!important</code> rules cannot reach in and eat it.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= console -->
+  <section class="section section-tint" id="console" aria-labelledby="console-title">
+    <div class="wrap dash-grid">
+      <div class="section-head reveal">
+        <p class="kicker">The console</p>
+        <h2 id="console-title">Set it up in a minute. <span class="muted">No account.</span></h2>
+        <p class="section-lead">
+          Shape the widget, then copy one piece of code. Your settings live in that code, so
+          nothing is stored anywhere and your pages make no request for them. To change
+          something later, open the link inside the code and paste the new version.
+        </p>
+        <ol class="steps">
+          <li><strong>Make it yours.</strong> Icon, size, colour, desktop and mobile position, or your own button.</li>
+          <li><strong>Choose the tools.</strong> Switch off what a site doesn't need. Saved visitor choices can't bring it back.</li>
+          <li><strong>Pick your platform.</strong> React, Next.js, Vue, Nuxt, plain HTML, Shopify, WordPress, Wix, Squarespace or Webflow.</li>
+          <li><strong>Paste once.</strong> Fixes arrive on their own, or pin a version that never changes.</li>
+        </ol>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/console/">
+            Open the console
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <figure class="dash-shot reveal" style="--i:1">
+        <div class="dash-frame" aria-hidden="true">
+          <div class="dash-chrome"><i></i><i></i><i></i><span>getaccesslayer.pages.dev/console</span></div>
+          <div class="dash-body">
+            <div class="dash-main">
+              <div class="dash-head">
+                <span class="dash-site">Set up your widget</span>
+                <span class="dash-badge">No account</span>
+              </div>
+              <div class="dash-tabs"><span class="on">Appearance</span><span>Features</span><span>Settings</span><span>Install</span></div>
+              <div class="dash-panes">
+                <div class="dash-controls">
+                  <span class="dash-label">Brand colour</span>
+                  <span class="dash-swatches"><i></i><i></i><i></i><i></i></span>
+                  <span class="dash-label">Position</span>
+                  <span class="dash-field">Bottom right</span>
+                  <span class="dash-label">Size</span>
+                  <span class="dash-seg"><i></i><i class="on"></i><i></i></span>
+                </div>
+                <div class="dash-preview"><i></i><i></i><i></i><b></b></div>
+              </div>
+              <div class="dash-publish"><span>Your settings live in the code</span><b>Copy code</b></div>
+            </div>
+          </div>
+        </div>
+        <figcaption>
+          A drawing of the console. The real one shows your widget on a sample page as
+          you change it.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================ honesty -->
+  <section class="section section-night" aria-labelledby="honest-title">
+    <div class="night-glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="kicker">What it won't claim</p>
+        <h2 id="honest-title" class="statement">
+          No overlay makes a site compliant.<br>
+          <span class="muted">This one doesn't pretend to.</span>
+        </h2>
+      </div>
+      <div class="honest-grid">
+        <article class="honest-card reveal" style="--i:0">
+          <span class="honest-num">01</span>
+          <h3>Not a compliance fix</h3>
+          <p>It changes presentation at runtime. It cannot repair heading order, unlabelled
+            controls, or components a screen reader can't drive. The 2024 Title II rule has no
+            overlay safe harbour.</p>
+        </article>
+        <article class="honest-card reveal" style="--i:1">
+          <span class="honest-num">02</span>
+          <h3>Not a screen reader</h3>
+          <p>Read aloud is a reading aid for sighted visitors. People who rely on assistive
+            technology use NVDA, JAWS or VoiceOver, and those need correct markup underneath.</p>
+        </article>
+        <article class="honest-card reveal" style="--i:2">
+          <span class="honest-num">03</span>
+          <h3>No AI alt text</h3>
+          <p>On purpose. Patching labels at runtime hides the problem. Fix them in the source,
+            and let an axe check in your end-to-end suite keep them fixed.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ privacy -->
+  <section class="section" id="privacy" aria-labelledby="privacy-title">
+    <div class="wrap privacy-grid">
+      <div class="section-head reveal">
+        <p class="kicker">Privacy</p>
+        <h2 id="privacy-title">What leaves the browser. <span class="muted">All of it.</span></h2>
+        <p class="section-lead">
+          A visitor's settings live in <code>localStorage</code> under <code>access-layer:v1</code>.
+          There is no analytics, no beacon and no visitor account. Two tools can reach the
+          network, and only when a visitor asks them to.
+        </p>
+      </div>
+      <ol class="ledger">
+        <li class="ledger-row reveal" style="--i:0">
+          <span class="ledger-when">Page load</span>
+          <span class="ledger-what">The script, from getaccesslayer.pages.dev.</span>
+          <span class="ledger-badge ok">No third party</span>
+        </li>
+        <li class="ledger-row reveal" style="--i:1">
+          <span class="ledger-when">Any setting</span>
+          <span class="ledger-what">Saved in this browser only, under one key.</span>
+          <span class="ledger-badge ok">Stays local</span>
+        </li>
+        <li class="ledger-row reveal" style="--i:2">
+          <span class="ledger-when">Dictionary</span>
+          <span class="ledger-what">The one word looked up goes to Wiktionary, and only while the tool is on.</span>
+          <span class="ledger-badge">On request</span>
+        </li>
+        <li class="ledger-row reveal" style="--i:3">
+          <span class="ledger-when">Translate</span>
+          <span class="ledger-what">On the device where the browser can. Otherwise Google, through the site's own Cloud key or Google's translator, once the visitor picks a language. Sites can turn Google off.</span>
+          <span class="ledger-badge">On request</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ install -->
+  <section class="section section-tint" id="install" aria-labelledby="install-title">
+    <div class="wrap install-grid">
+      <div class="section-head reveal">
+        <p class="kicker">Install</p>
+        <h2 id="install-title">One tag. <span class="muted">That's the integration.</span></h2>
+        <p class="section-lead">
+          Copy a ready tag from the console, or write one by hand: embed a
+          <strong>pinned release</strong> with its integrity hash and configure it with
+          <code>data-*</code> attributes. Every release keeps its own address forever;
+          <code>/v1/</code> follows the newest 1.x for pages that should update on their own.
+        </p>
+        <p class="section-lead">
+          Pin the version on checkout and account pages, so the browser runs only the file you reviewed.
+        </p>
+        <a class="btn btn-ghost" href="/console/">Build a tag in the console</a>
+      </div>
+
+      <div class="install-box reveal" style="--i:1">
+        <div class="tabs" role="tablist" aria-label="Integration">
+          <button type="button" role="tab" id="tab-script" aria-controls="panel-script" aria-selected="true">Pinned release</button>
+          <button type="button" role="tab" id="tab-button" aria-controls="panel-button" aria-selected="false" tabindex="-1">Your own button</button>
+          <button type="button" role="tab" id="tab-nuxt" aria-controls="panel-nuxt" aria-selected="false" tabindex="-1">Nuxt 3</button>
+          <button type="button" role="tab" id="tab-module" aria-controls="panel-module" aria-selected="false" tabindex="-1">ES module</button>
+        </div>
+        <div class="code" role="tabpanel" id="panel-script" aria-labelledby="tab-script" tabindex="0">
+          <div class="code-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>index.html</div>
+          <pre data-code>&lt;!-- The release notes carry the exact integrity hash. --&gt;
+&lt;script src="https://getaccesslayer.pages.dev/v1.0.0/access-layer.iife.js"
+        integrity="sha384-…" crossorigin="anonymous" defer
+        data-access-layer
+        data-fonts-url="https://getaccesslayer.pages.dev/v1.0.0/fonts/"
+        data-color="#1742C9"
+        data-statement-url="/accessibility"&gt;&lt;/script&gt;</pre>
+        </div>
+        <div class="code" role="tabpanel" id="panel-button" aria-labelledby="tab-button" tabindex="0" hidden>
+          <div class="code-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>index.html</div>
+          <pre data-code>&lt;!-- Your button opens the panel and the floating
+     icon stays hidden. --&gt;
+&lt;script src="https://getaccesslayer.pages.dev/v1/access-layer.iife.js"
+        defer data-access-layer
+        data-trigger-id="accessibility-button"&gt;&lt;/script&gt;
+
+&lt;button id="accessibility-button" type="button"&gt;
+  Accessibility options
+&lt;/button&gt;</pre>
+        </div>
+        <div class="code" role="tabpanel" id="panel-nuxt" aria-labelledby="tab-nuxt" tabindex="0" hidden>
+          <div class="code-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>plugins/access-layer.client.ts</div>
+          <pre data-code>import { defineNuxtPlugin } from '#imports'
+
+export default defineNuxtPlugin(() =&gt; {
+  const script = document.createElement('script')
+  script.src = 'https://getaccesslayer.pages.dev/v1/access-layer.iife.js'
+  script.defer = true
+  script.dataset.accessLayer = ''
+  script.dataset.color = '#1742C9'
+  document.body.append(script)
+})</pre>
+        </div>
+        <div class="code" role="tabpanel" id="panel-module" aria-labelledby="tab-module" tabindex="0" hidden>
+          <div class="code-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>main.js</div>
+          <pre data-code>import { mount } from 'access-layer'
+
+const widget = mount({ color: '#1742C9', statementUrl: '/accessibility' })
+
+widget.settings.setProfile('dyslexia')
+widget.settings.subscribe((state) =&gt; console.log(state))</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ cta -->
+  <section class="section cta" aria-labelledby="cta-title">
+    <div class="wrap">
+      <div class="cta-card reveal">
+        <h2 id="cta-title">Press <kbd>Ctrl</kbd> + <kbd>U</kbd> on any page that has it.</h2>
+        <p>Or use the button in the corner of this one. Everything on this page was built to be changed by it. When you're ready, set it up in the console.</p>
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary" data-open-widget>Open the widget</button>
+          <a class="btn btn-ghost on-dark" href="/console/">Set up a website</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>AccessLayer · MIT licence · The widget sets no cookies and runs no analytics.</p>
+    <nav aria-label="Footer">
+      <a href="/console/">Console</a>
+      <a href="#tools">Tools</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#install">Install</a>
+      <a href="./demo/fixture.html">Test fixture</a>
+    </nav>
+  </div>
+</footer>
+
+<script type="module" src="./demo/landing.ts"></script>
+</body>
+</html>

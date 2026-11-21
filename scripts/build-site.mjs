@@ -101,7 +101,7 @@ await writeFile(resolve(SITE, 'versions.json'), JSON.stringify({ channel, versio
 await writeFile(resolve(SITE, 'index.html'), await demoPage(`v${major}`, dirName))
 await writeFile(resolve(SITE, 'robots.txt'), 'User-agent: *\nDisallow: /\n')
 await writeFile(resolve(SITE, '_headers'), headers(listed.map((r) => r.dir), [...aliases.keys()]))
-await writeFile(resolve(SITE, '404.html'), '<!doctype html><meta charset="utf-8"><title>Not found</title><p>Not found.</p>\n')
+await writeFile(resolve(SITE, '404.html'), '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found</title><h1>Page not found</h1><p><a href="/">Go to the home page</a></p></html>\n')
 
 console.log(`  ok    site/${dirName}/ (${channel})`)
 for (const [m, dir] of aliases) console.log(`  ok    site/v${m}/ -> ${dir}`)

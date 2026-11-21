@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AccessLayer — built bundle</title>
+<style>
+  :root { --brand: #0574F2; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font: 16px/1.6 system-ui, sans-serif;
+    color: #1f2933;
+    background: #f3f4f6;
+  }
+  header {
+    background: linear-gradient(120deg, #0b5cd8, #16a34a);
+    color: #fff;
+    padding: 56px 24px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { margin: 0 0 8px; font-size: 34px; }
+  header p { margin: 0; opacity: .92; }
+  main { padding: 32px 24px 96px; }
+  section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  }
+  h2 { margin-top: 0; }
+  a { color: #0b5cd8; }
+  /* Deliberately poor contrast, so Smart Contrast has something to fix. */
+  .faint { color: #a8b0bb; }
+  .spinner {
+    width: 44px; height: 44px; margin: 12px 0;
+    border: 5px solid #dbe2ea; border-top-color: var(--brand);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  figure { margin: 16px 0; }
+  img { max-width: 100%; border-radius: 8px; display: block; }
+  button.demo {
+    padding: 10px 18px; border: 0; border-radius: 8px;
+    background: var(--brand); color: #fff; font: inherit; cursor: pointer;
+  }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #dbe2ea; padding: 8px 10px; text-align: left; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Accessibility widget demo</h1>
+    <p>A test page with the awkward cases: low contrast text, an animation, images, icons and a form.</p>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <section>
+    <h2>Readable content</h2>
+    <p>
+      This paragraph exists so you can watch <strong>Bigger Text</strong> scale
+      type while keeping the heading larger than the body, which is the part a
+      blunt <code>font-size: 20px !important</code> gets wrong.
+    </p>
+    <p class="faint">
+      This sentence is deliberately set in a pale grey that fails WCAG 1.4.3 at
+      about 2.1 to 1. Switch on Smart Contrast and it should darken until it
+      passes, while staying grey rather than snapping to black.
+    </p>
+    <p>An <a href="https://example.com">external link</a> and an <a href="#main">internal link</a>.</p>
+  </section>
+
+  <section>
+    <h2>Motion and media</h2>
+    <div class="spinner" aria-hidden="true"></div>
+    <p>The spinner above stops when Pause Animations is on.</p>
+    <figure>
+      <img src="https://placehold.co/600x220/0b5cd8/ffffff?text=Sample+image" alt="A placeholder banner image">
+      <figcaption>Hide Images blanks this while keeping the layout stable.</figcaption>
+    </figure>
+    <p><button class="demo" aria-label="Save the current draft">💾</button> An icon-only button, for Tooltips.</p>
+  </section>
+
+  <section>
+    <h2>Structure</h2>
+    <h3>A third-level heading</h3>
+    <p>Page Structure should list every heading on this page with its level.</p>
+    <table>
+      <caption>A small table</caption>
+      <thead><tr><th>Tool</th><th>Kind</th></tr></thead>
+      <tbody>
+        <tr><td>Contrast</td><td>CSS</td></tr>
+        <tr><td>Screen reader</td><td>Speech API</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Dictionary</h2>
+    <p>
+      Switch the Dictionary tool on, then select a single word such as
+      <em>ecclesiastical</em> or <em>sanctuary</em> and a Define button appears.
+    </p>
+  </section>
+
+  <nav aria-label="Demo navigation">
+    <a href="#main">Back to top</a>
+  </nav>
+</main>
+
+<script src="/dist/access-layer.iife.js" defer data-access-layer data-color="#0574F2" data-position="bottom-left" data-statement-url="/accessibility"></script>
+</body>
+</html>

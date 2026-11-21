@@ -1,0 +1,7 @@
+# The landing page and console on Cloudflare Pages, at
+# https://getaccesslayer.pages.dev: `npm run deploy:site`. Static files only,
+# with no server and no secrets. For now it also serves the widget's released
+# files (/v1/, /v1.0.0/) that the console's code loads.
+name = "getaccesslayer"
+pages_build_output_dir = "dist-app"
+compatibility_date = "2026-10-01"

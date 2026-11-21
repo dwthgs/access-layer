@@ -1,0 +1,9 @@
+# The widget's public files on their own address: `site/`, assembled by
+# scripts/build-site.mjs, which also writes its caching and CORS headers to
+# site/_headers. No Worker code runs: Cloudflare serves the files directly.
+name = "access-layer-cdn"
+compatibility_date = "2026-10-01"
+
+[assets]
+directory = "site"
+not_found_handling = "404-page"

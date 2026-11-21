@@ -1,0 +1,58 @@
+{
+  "name": "access-layer",
+  "version": "1.0.0",
+  "description": "Self-hosted, dependency-free accessibility widget. A drop-in replacement for UserWay.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "files": [
+    "dist",
+    "integrations",
+    "README.md"
+  ],
+  "main": "./dist/access-layer.umd.cjs",
+  "module": "./dist/access-layer.js",
+  "exports": {
+    ".": {
+      "import": "./dist/access-layer.js",
+      "require": "./dist/access-layer.umd.cjs"
+    },
+    "./nuxt": "./integrations/nuxt/access-layer.client.ts"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:site": "node scripts/build-site.mjs",
+    "preview": "vite preview",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:live": "cross-env DICTIONARY_LIVE=1 TRANSLATE_LIVE=1 playwright test",
+    "test:all": "vitest --run && playwright test",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p e2e",
+    "fetch-fonts": "node scripts/fetch-fonts.mjs",
+    "size": "node scripts/report-size.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "serve:prod-like": "npm run build && node scripts/build-site.mjs && wrangler dev -c wrangler.cdn.toml --port 5005",
+    "build:app": "tsc --noEmit && vite build --config vite.app.config.ts",
+    "deploy:site": "npm run build && rm -rf site && node scripts/build-site.mjs --channel=production && npm run build:app && cp -R site/v* site/versions.json site/_headers dist-app/ && wrangler pages deploy --branch main"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.3",
+    "cross-env": "^10.1.0",
+    "happy-dom": "^20.0.0",
+    "typescript": "^5.6.2",
+    "vite": "^7.1.0",
+    "vitest": "^4.0.0",
+    "wrangler": "^4.156.0"
+  },
+  "keywords": [
+    "accessibility",
+    "widget",
+    "wcag",
+    "userway",
+    "web-component"
+  ]
+}

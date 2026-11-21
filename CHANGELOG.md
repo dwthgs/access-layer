@@ -47,5 +47,6 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
   changes.
 
 ### Fixed
-- **The project site answers unknown addresses with a 404 page** and a link
-  home, where it used to show the landing page.
+- **The project site answers unknown addresses with a 404 page** in the
+  site's own design, with links home and to the console, where it used to
+  show the landing page.

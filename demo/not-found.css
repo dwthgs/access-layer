@@ -1,0 +1,24 @@
+/* The 404 page: the landing page's hero on its own, filling the screen. */
+.not-found { min-height: 100vh; display: flex; flex-direction: column; }
+.not-found main { flex: 1; display: flex; }
+.not-found .hero { flex: 1; display: flex; align-items: center; overflow: hidden; }
+.not-found .hero .wrap { position: relative; }
+.not-found .lead { max-width: 34em; }
+/* A large, quiet "404" behind the text. Decorative, so it is hidden from screen readers. */
+.not-found-code {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin: 0;
+  transform: translateY(-50%);
+  font-size: clamp(140px, 30vw, 380px);
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: #fff;
+  opacity: 0.1;
+  pointer-events: none;
+  user-select: none;
+}
+/* The landing page's header has a second button that pushes this one right. */
+.not-found .site-nav .btn { margin-left: auto; }

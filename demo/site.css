@@ -332,5 +332,4 @@ kbd {
   font-size: 14px;
 }
 .site-footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; }
-.site-footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
 .site-footer a { color: var(--ink-2); padding-block: 4px; }

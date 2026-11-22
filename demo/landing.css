@@ -3,20 +3,26 @@
 [data-icon] { display: inline-grid; place-items: center; }
 [data-icon] svg { width: 100%; height: 100%; }
 .btn [data-icon] { width: 18px; height: 18px; }
-.btn kbd { margin-left: 2px; font-size: 11px; border-color: rgba(255, 255, 255, 0.55); }
-.btn-ghost kbd { border-color: var(--line-2); }
-/* Pushes the buttons to the right edge, apart from the links. */
-.nav-widget { margin-left: auto; }
+/* The header's right side: a quiet GitHub icon, then the one primary action. */
+.nav-github {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  border-radius: 50%;
+  color: var(--ink);
+  transition: background 0.2s;
+}
+.nav-github:hover { background: rgba(11, 18, 32, 0.07); }
+.nav-github .gh-mark { width: 22px; height: 22px; }
 @media (max-width: 520px) {
-  .btn kbd { display: none; }
-  /* Open widget as an icon, so both buttons fit on the logo's row. */
-  .nav-widget .btn-label { display: none; }
-  .site-nav .wrap { column-gap: 12px; }
+  .site-nav .wrap { column-gap: 8px; }
   .site-nav .btn { padding: 0 11px; }
 }
-/* The smallest phones: the floating button already opens the widget, so the header keeps one row for the logo and the call to action. */
+/* The smallest phones have room for the logo and one button. GitHub stays in the footer. */
 @media (max-width: 360px) {
-  .nav-widget { display: none; }
+  .nav-github { display: none; }
 }
 
 .muted { color: var(--ink-3); }

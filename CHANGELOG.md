@@ -42,6 +42,8 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
   Shopify, WordPress, Wix, Squarespace or Webflow) and copy the code. Nothing
   is stored: the settings are part of the code, which carries a link that
   reopens them.
+- **The landing page links to the source.** A GitHub icon in the header and a
+  link in the footer, with one clear action beside it: Get started.
 - **Automatic or pinned updates.** `/v1/` follows the newest 1.x release so
   fixes arrive on their own. A pinned version, with its integrity hash, never
   changes.

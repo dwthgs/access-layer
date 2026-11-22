@@ -49,9 +49,9 @@ function describe(key: keyof State, value: unknown): string | null {
     case 'hideImages': return 'Images hidden'
     case 'pauseAnimations': return 'Animations paused'
     case 'tooltips': return 'Tooltips'
-    case 'screenReader': return 'Read aloud'
+    case 'screenReader': return 'Text to speech'
     case 'dictionary': return 'Dictionary'
-    case 'oversized': return 'Oversized widget'
+    case 'oversized': return 'Large menu'
     default: return null
   }
 }
@@ -138,7 +138,7 @@ const TOOLS: Tool[] = [
   { key: 'pageStructure', name: 'Page structure', icon: 'structure', category: 'navigating', how: 'dialog',
     blurb: 'Headings, landmarks and links, with jump-to.', action: (opener) => openPanelPart('structure', opener) },
 
-  { key: 'screenReader', name: 'Read aloud', icon: 'audio', category: 'understanding', how: 'speech api',
+  { key: 'screenReader', name: 'Text to speech', icon: 'audio', category: 'understanding', how: 'speech api',
     blurb: 'Reads the clicked or focused block aloud, at three speeds.', options: TOGGLE,
     available: () => 'speechSynthesis' in window },
   { key: 'tooltips', name: 'Tooltips', icon: 'tooltip', category: 'understanding', how: 'overlay',
@@ -307,7 +307,7 @@ function wireFilters(): void {
 }
 
 // ---------------------------------------------------------------- profiles
-const HERO_PROFILES = ['dyslexia', 'vision', 'adhd', 'colorBlind']
+const HERO_PROFILES = ['dyslexia', 'vision', 'focus', 'colorBlind']
 let selectedProfile = 'dyslexia'
 
 function profileTurnsOn(id: string): string[] {

@@ -11,7 +11,7 @@
 
 | Tool | What it does | How |
 | --- | --- | --- |
-| Read aloud | Reads the clicked or focused block aloud, at three speeds | Web Speech API |
+| Text to speech | Reads the clicked or focused block aloud, at three speeds | Web Speech API |
 | Contrast | Invert, dark and light modes | CSS |
 | Smart contrast | Measures text against its real background and corrects it to WCAG 1.4.3 | Measured per element |
 | Saturation | Low, high, monochrome | CSS filter |
@@ -28,7 +28,7 @@
 | Page structure | Lists headings, landmarks and links to jump to | Dialog |
 | Dictionary | Double-click a word for its definition. See [dictionary.md](dictionary.md) | Wiktionary |
 | Language | Translates the page into 193 languages. See [translation.md](translation.md) | On-device translator, or Google |
-| Oversized widget | Enlarges the panel itself | CSS |
+| Large menu | Enlarges the panel itself | CSS |
 
 A site can leave tools out with `data-disabled-tools`. A switched-off tool is
 hidden, and neither a saved preference nor a profile can turn it back on.
@@ -45,14 +45,14 @@ check in its corner.
 
 | Profile | Turns on |
 | --- | --- |
-| Motor Impaired | Large cursor, highlighted links, paused animations |
-| Read aloud | Read aloud on click and focus, tooltips for image and button labels |
-| Color Blind | High saturation, smart contrast |
-| Dyslexia | Dyslexia font, text spacing 1, line height 1.5×, left-aligned text, reading guide |
 | Low vision | Bigger text 2, smart contrast, highlighted links |
-| Cognitive & Learning | Reading guide, highlighted links, paused animations, dictionary |
-| Seizure & Epileptic | Paused animations, low saturation |
-| ADHD | Reading mask, paused animations, low saturation |
+| Dyslexia | Dyslexia font, text spacing 1, line height 1.5×, left-aligned text, reading guide |
+| Colour blindness | High saturation, smart contrast |
+| Focus | Reading mask, paused animations, low saturation |
+| Cognitive | Reading guide, highlighted links, paused animations, dictionary |
+| Reduce motion | Paused animations, low saturation |
+| Mobility | Large cursor, highlighted links, paused animations |
+| Read aloud | Read aloud on click and focus, tooltips for image and button labels |
 
 A profile starts from the defaults, so choosing one replaces the previous one
 and does not stack on it. Clicking the active profile again turns it off and

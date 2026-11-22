@@ -1,8 +1,8 @@
 /**
  * Page translation.
  *
- * Picking a language in the panel translates the page itself, as UserWay
- * does, not only the widget. Two engines, tried in order:
+ * Picking a language in the panel translates the page itself, not only
+ * the widget. Two engines, tried in order:
  *
  *   1. The browser's own on-device translator (the Translator API, in
  *      current Chrome and Edge). Nothing leaves the device.

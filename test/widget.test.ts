@@ -230,9 +230,9 @@ describe('panel', () => {
 describe('small accessibility fixes (#14)', () => {
   it('keeps the active profile when only the reading speed changes (L-11)', () => {
     const element = mount()
-    element.settings.setProfile('blind')
+    element.settings.setProfile('readAloud')
     element.settings.set({ readerRate: 1.5 })
-    expect(element.settings.state.profile).toBe('blind')
+    expect(element.settings.state.profile).toBe('readAloud')
   })
 
   it('titles the panel with an h2, not a second h1 for the page (L-16)', () => {
@@ -367,8 +367,8 @@ describe('keyboard', () => {
 describe('profile cards', () => {
   it('are named by the profile alone, with what it does as the description', () => {
     const element = mount()
-    const card = element.shadowRoot?.querySelector('[data-profile="seizure"]') as HTMLButtonElement
-    expect(card.textContent).toBe('Seizure & Epileptic')
+    const card = element.shadowRoot?.querySelector('[data-profile="motion"]') as HTMLButtonElement
+    expect(card.textContent).toBe('Reduce motion')
     const description = element.shadowRoot?.getElementById(card.getAttribute('aria-describedby') ?? '')
     expect(description?.textContent).toBe('No animation, muted colour')
     expect(card.contains(description ?? null)).toBe(false)

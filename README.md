@@ -60,9 +60,9 @@ Their choices are saved in their own browser and follow them across pages.
 | Navigation | Large cursor with reading mask and guide, tooltips, page structure |
 | Language | Page translation into 193 languages |
 
-Eight one-click profiles turn on a sensible group at once: Motor Impaired,
-Read aloud, Color Blind, Dyslexia, Low vision, Cognitive & Learning,
-Seizure & Epileptic and ADHD.
+Eight one-click profiles turn on a sensible group at once: Low vision,
+Dyslexia, Colour blindness, Focus, Cognitive, Reduce motion, Mobility and
+Read aloud.
 
 Every tool and profile is described in [docs/tools.md](docs/tools.md).
 

@@ -42,6 +42,10 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
   Shopify, WordPress, Wix, Squarespace or Webflow) and copy the code. Nothing
   is stored: the settings are part of the code, which carries a link that
   reopens them.
+- **Profiles with plain names.** Low vision, Dyslexia, Colour blindness, Focus,
+  Cognitive, Reduce motion, Mobility and Read aloud. The speech tile is
+  called Text to speech, since it is not a screen reader. A profile saved under an
+  earlier name still opens.
 - **Automatic or pinned updates.** `/v1/` follows the newest 1.x release so
   fixes arrive on their own. A pinned version, with its integrity hash, never
   changes.

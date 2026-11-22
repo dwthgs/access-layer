@@ -1,5 +1,5 @@
 /**
- * The language picker, laid out as UserWay's: the current language with its
+ * The language picker: the current language with its
  * code badge as a disclosure header, and under it a searchable list.
  *
  * The page's own language heads the list and stands for "as the page is":

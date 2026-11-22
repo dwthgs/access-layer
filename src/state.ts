@@ -61,6 +61,9 @@ export interface State {
   lang: string | null
 }
 
+/** Profile ids before they stopped naming a diagnosis; a saved choice still resolves. */
+export const LEGACY_PROFILES: Record<string, string> = { adhd: 'focus', seizure: 'motion', blind: 'readAloud' }
+
 export const DEFAULT_STATE: State = {
   textScale: 0,
   lineHeight: 0,
@@ -180,7 +183,7 @@ export function sanitize(input: Partial<State>): State {
     }
     if (key === 'lang' && (value === null || typeof value === 'string')) out.lang = value
     if (key === 'profile' && (value === null || typeof value === 'string')) {
-      out.profile = value as string | null
+      out.profile = value === null ? null : (LEGACY_PROFILES[value] ?? value)
     }
   }
   return out

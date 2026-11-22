@@ -30,7 +30,7 @@ describe('line height', () => {
 
   afterEach(() => teardown())
 
-  it('steps are 1.5x, 1.75x and 2x, as UserWay', () => {
+  it('steps are 1.5x, 1.75x and 2x', () => {
     expect(FACTORS).toEqual([1, 1.5, 1.75, 2])
   })
 

@@ -48,6 +48,8 @@ test('Contrast steps through its options, filling a bar each time', async ({ pag
 
 test('bars appear only once a tile is used, without the tile changing size', async ({ page }) => {
   const spacing = tile(page, 'Text spacing')
+  // In view first: the click would otherwise scroll the panel and move the tile.
+  await spacing.scrollIntoViewIfNeeded()
   const before = await spacing.boundingBox()
   await expect(spacing.locator('.mla-steps')).toBeHidden()
   await spacing.click()

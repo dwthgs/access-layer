@@ -115,14 +115,15 @@ button { font: inherit; color: inherit; }
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 14px 14px 18px;
-  background: var(--mla-accent);
-  color: var(--mla-accent-ink);
+  padding: 12px 12px 12px 18px;
+  border-bottom: 1px solid var(--mla-line);
 }
 .mla-title { margin: 0; font-size: calc(16px * var(--mla-scale)); font-weight: 650; flex: 1; }
 .mla-shortcut {
+  margin-left: auto;
   font-size: calc(11px * var(--mla-scale));
-  border: 1px solid currentColor;
+  color: var(--mla-ink-muted);
+  border: 1px solid var(--mla-line);
   border-radius: 6px;
   padding: 2px 6px;
   white-space: nowrap;
@@ -132,11 +133,11 @@ button { font: inherit; color: inherit; }
   place-items: center;
   width: 34px; height: 34px;
   border: 0; border-radius: 50%;
-  background: rgba(255,255,255,.18);
+  background: var(--mla-bg-sunken);
   color: inherit;
   cursor: pointer;
 }
-.mla-icon-btn:hover { background: rgba(255,255,255,.32); }
+.mla-icon-btn:hover { background: var(--mla-line); }
 
 .mla-body { overflow-y: auto; overscroll-behavior: contain; padding: 14px; }
 .mla-body::-webkit-scrollbar { width: 10px; }
@@ -196,42 +197,19 @@ button { font: inherit; color: inherit; }
 .mla-collapse { display: none; padding: 2px 0 10px; }
 .mla-collapse[data-open] { display: block; }
 
-.mla-profiles {
-  margin: 0 0 12px;
-  padding: 10px;
-  border-radius: 14px;
-  background: #eef0f4;
-}
-.mla-profiles-head { display: flex; align-items: center; gap: 6px; }
-.mla-profiles-toggle {
-  flex: 1; min-width: 0;
-  display: flex; align-items: center; gap: 10px;
-  padding: 4px;
-  border: 0; border-radius: 10px;
-  background: transparent; color: var(--mla-ink);
-  font: 600 calc(16px * var(--mla-scale)) var(--mla-font);
-  text-align: left;
-  cursor: pointer;
-}
-.mla-profiles-badge {
-  display: grid; place-items: center; flex: none;
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: #111; color: #fff;
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #111;
-  margin: 2px;
-}
-.mla-profiles-badge svg { width: 20px; height: 20px; }
+.mla-profiles { margin: 0 0 14px; }
+.mla-profiles-head { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.mla-profiles-title { flex: 1; margin: 0; font-size: calc(14px * var(--mla-scale)); font-weight: 650; }
+/* The language picker's disclosure arrow. */
 .mla-profiles-caret { display: inline-flex; transition: transform 140ms ease; }
 .mla-profiles-caret svg { width: 18px; height: 18px; }
-.mla-profiles-toggle[aria-expanded="false"] .mla-profiles-caret { transform: rotate(-90deg); }
+@media (prefers-reduced-motion: reduce) { .mla-profiles-caret { transition: none; } }
 .mla-profiles-info-btn {
   display: grid; place-items: center; flex: none;
   width: 24px; height: 24px;
   border: 0; border-radius: 50%;
   background: #d7e0e4; color: var(--mla-ink);
   cursor: pointer;
-  margin-right: 4px;
 }
 .mla-profiles-info-btn svg { width: 16px; height: 16px; }
 .mla-profiles-info-btn[aria-expanded="true"] { background: var(--mla-accent); color: var(--mla-accent-ink); }
@@ -239,43 +217,40 @@ button { font: inherit; color: inherit; }
 .mla-profile-info-list { margin: 0; font-size: calc(13px * var(--mla-scale)); }
 .mla-profile-info-list dt { font-weight: 600; margin-top: 6px; }
 .mla-profile-info-list dd { margin: 0; color: var(--mla-ink-muted); }
-.mla-profile-list { padding: 8px 0 0; }
+.mla-profile-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
 .mla-profile {
   position: relative;
-  display: flex; align-items: center; gap: 12px;
-  width: 100%;
-  min-height: calc(54px * var(--mla-scale));
-  padding: 8px 12px;
-  border: 1.5px solid transparent;
-  border-radius: 12px;
+  display: flex; align-items: center; gap: 8px;
+  min-width: 0;
+  min-height: calc(46px * var(--mla-scale));
+  padding: 6px 8px;
+  border: 1px solid var(--mla-line);
+  border-radius: 10px;
   background: var(--mla-bg); color: var(--mla-ink);
-  font: calc(15px * var(--mla-scale)) var(--mla-font);
+  font: calc(13.5px * var(--mla-scale))/1.2 var(--mla-font);
   cursor: pointer;
   text-align: left;
-  margin-bottom: 8px;
 }
-.mla-profile:last-of-type { margin-bottom: 0; }
-.mla-profile:hover { border-color: #c9d0da; }
-.mla-profile[aria-pressed="true"] { border-color: var(--mla-accent); }
+.mla-profile:hover { background: var(--mla-bg-sunken); }
+.mla-profile[aria-pressed="true"] { border-color: var(--mla-accent); box-shadow: inset 0 0 0 1px var(--mla-accent); }
 .mla-profile-icon {
   display: grid; place-items: center; flex: none;
-  width: 30px; height: 30px;
+  width: 26px; height: 26px;
   border-radius: 50%;
-  background: #eef0f4;
+  background: var(--mla-bg-sunken);
 }
-.mla-profile-icon svg { width: 18px; height: 18px; stroke-width: 2.1; color: #111; }
+.mla-profile-icon svg { width: 16px; height: 16px; stroke-width: 2.1; color: #111; }
 .mla-profile-name { flex: 1; min-width: 0; }
 .mla-profile-check {
   display: grid; place-items: center; flex: none;
-  width: 20px; height: 20px;
+  width: 16px; height: 16px;
   border-radius: 50%;
   background: var(--mla-accent); color: var(--mla-accent-ink);
   visibility: hidden;
 }
-.mla-profile-check svg { width: 12px; height: 12px; stroke-width: 3; }
+.mla-profile-check svg { width: 10px; height: 10px; stroke-width: 3; }
 .mla-profile[aria-pressed="true"] .mla-profile-check { visibility: visible; }
-@media (prefers-reduced-motion: reduce) { .mla-profiles-caret { transition: none; } }
 
 /* -------------------------------------------------------------------- tiles */
 .mla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 4px 0 14px; }
@@ -325,16 +300,17 @@ button { font: inherit; color: inherit; }
 /* ------------------------------------------------------------------- footer */
 .mla-foot { border-top: 1px solid var(--mla-line); padding: 10px 14px 12px; background: var(--mla-bg-sunken); }
 .mla-reset {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 11px;
-  border: 0; border-radius: 10px;
-  background: var(--mla-accent); color: var(--mla-accent-ink);
-  font-weight: 600; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 10px;
+  border: 1px solid var(--mla-line); border-radius: 8px;
+  background: var(--mla-bg); color: var(--mla-ink);
+  font-size: calc(13px * var(--mla-scale)); font-weight: 600; cursor: pointer;
 }
-/* Darker, not lighter: white text on the accent only just passes. */
-.mla-reset:hover { filter: brightness(.92); }
-.mla-foot-links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 10px; }
-.mla-foot-links a, .mla-foot-links button {
+.mla-reset span { display: inline-flex; }
+.mla-reset svg { width: 16px; height: 16px; }
+.mla-reset:hover { border-color: var(--mla-ink-muted); }
+.mla-foot-links { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+.mla-foot-links a, .mla-foot-links button:not(.mla-reset) {
   background: none; border: 0; padding: 0;
   color: var(--mla-ink-muted); font-size: calc(12.5px * var(--mla-scale));
   text-decoration: underline; cursor: pointer;

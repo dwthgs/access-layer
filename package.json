@@ -1,6 +1,6 @@
 {
   "name": "access-layer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Self-hosted, dependency-free accessibility widget. A drop-in replacement for UserWay.",
   "license": "MIT",
   "private": true,

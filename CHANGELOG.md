@@ -11,6 +11,8 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-11-23
+
 ### Added
 - **The landing page links to the source.** A GitHub icon in the header and a
   link in the footer, with one clear action beside it: Get started.

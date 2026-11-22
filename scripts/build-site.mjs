@@ -4,6 +4,9 @@
  * `npm run fetch-fonts`) first.
  *
  *   node scripts/build-site.mjs --channel=production   a release
+ *   node scripts/build-site.mjs --channel=production --site-only
+ *       no new release: refresh the aliases, list and headers around the
+ *       releases already published, for publishing the site's own pages
  *   node scripts/build-site.mjs                        local, for `npm run serve:prod-like`
  *
  * Layout:
@@ -42,17 +45,19 @@ const channel = (process.argv.find((a) => a.startsWith('--channel=')) ?? '--chan
 if (!['production', 'local'].includes(channel)) {
   fail(`Unknown channel "${channel}"`)
 }
+const siteOnly = process.argv.includes('--site-only')
+if (siteOnly && channel !== 'production') fail('--site-only is for --channel=production')
 
 const { version } = JSON.parse(await readFile(resolve(ROOT, 'package.json'), 'utf8'))
 if (!/^\d+\.\d+\.\d+$/.test(version)) fail(`package.json version "${version}" is not plain semver (X.Y.Z)`)
 const major = version.split('.')[0]
 
-for (const file of SHIPPED) {
+for (const file of siteOnly ? [] : SHIPPED) {
   if (!existsSync(resolve(DIST, file))) fail(`dist/${file} is missing. Run \`npm run build\` first.`)
 }
 
 const fonts = existsSync(FONTS) ? (await readdir(FONTS)).filter((f) => f.endsWith('.woff2')) : []
-if (fonts.length === 0) {
+if (fonts.length === 0 && !siteOnly) {
   if (channel === 'production') fail('public/fonts/ is empty. Run `npm run fetch-fonts` first.')
   console.warn('  warn  no fonts in public/fonts/; the font tools will fall back to system faces')
 }
@@ -65,14 +70,17 @@ if (channel === 'production') await requireLiveReleases()
 
 const dirName = channel === 'production' ? `v${version}` : `v${version}-${channel}.${shortSha()}`
 const target = resolve(SITE, dirName)
-if (existsSync(target)) {
-  fail(`${dirName} is already published. Bump the version in package.json; a release is never overwritten.`)
+if (siteOnly) {
+  if (!existsSync(target)) fail(`${dirName} is not published yet. Release it with \`npm run deploy:site\`.`)
+} else {
+  if (existsSync(target)) {
+    fail(`${dirName} is already published. Bump the version in package.json; a release is never overwritten.`)
+  }
+  await mkdir(resolve(target, 'fonts'), { recursive: true })
+  for (const file of SHIPPED) await cp(resolve(DIST, file), resolve(target, file))
+  for (const font of fonts) await cp(resolve(FONTS, font), resolve(target, 'fonts', font))
+  await writeFile(resolve(target, 'integrity.json'), JSON.stringify(await integrityOf(target), null, 2) + '\n')
 }
-
-await mkdir(resolve(target, 'fonts'), { recursive: true })
-for (const file of SHIPPED) await cp(resolve(DIST, file), resolve(target, file))
-for (const font of fonts) await cp(resolve(FONTS, font), resolve(target, 'fonts', font))
-await writeFile(resolve(target, 'integrity.json'), JSON.stringify(await integrityOf(target), null, 2) + '\n')
 
 // Aliases. In production, /vN/ is the newest release in major N. Elsewhere
 // there is only this build, so /vN/ is simply this build.
@@ -105,7 +113,7 @@ await writeFile(resolve(SITE, 'robots.txt'), 'User-agent: *\nDisallow: /\n')
 await writeFile(resolve(SITE, '_headers'), headers(listed.map((r) => r.dir), [...aliases.keys()]))
 await writeFile(resolve(SITE, '404.html'), '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found</title><h1>Page not found</h1><p><a href="/">Go to the home page</a></p></html>\n')
 
-console.log(`  ok    site/${dirName}/ (${channel})`)
+console.log(`  ok    site/${dirName}/ (${channel}${siteOnly ? ', unchanged' : ''})`)
 for (const [m, dir] of aliases) console.log(`  ok    site/v${m}/ -> ${dir}`)
 console.log(`  sri   ${versions.find((v) => v.version === dirName.slice(1))?.integrity}`)
 

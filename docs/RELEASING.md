@@ -52,6 +52,13 @@ than every `v*` tag and that `CHANGELOG.md` has a section for it.
 5. Load the published file and compare it with the hash in `integrity.json`.
 6. Use `node scripts/check-release.mjs --notes` for the release notes.
 
+## Publishing the site without a release
+
+A change to the landing page, the console or the docs is not a release.
+Publish it with `npm run deploy:app`. It builds the pages and publishes them
+around the releases already in `site/`, after the same check against the live
+`versions.json`. It builds no widget version and changes none.
+
 ## If a release is bad
 
 Release a fix as the next version. Sites on `/v1/` receive it within five

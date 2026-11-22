@@ -222,10 +222,11 @@ button { font: inherit; color: inherit; }
 .mla-profile-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
 .mla-profile {
-  display: flex; align-items: center; gap: 9px;
+  position: relative;
+  display: flex; align-items: center; gap: 8px;
   min-width: 0;
   min-height: calc(50px * var(--mla-scale));
-  padding: 8px 12px;
+  padding: 8px 10px;
   border: 0; border-radius: 18px;
   background: var(--mla-hue-1); color: var(--mla-hue-ink);
   font: 700 calc(13px * var(--mla-scale))/1.15 var(--mla-font);
@@ -242,11 +243,14 @@ button { font: inherit; color: inherit; }
 .mla-profile-icon { display: inline-flex; flex: none; }
 .mla-profile-icon svg { width: 20px; height: 20px; stroke-width: 2; }
 .mla-profile-name { flex: 1; min-width: 0; }
+/* A corner badge, like the tiles': kept out of the row so the name has its width. */
 .mla-profile-check {
-  display: grid; place-items: center; flex: none;
-  width: 18px; height: 18px;
+  position: absolute; top: -5px; right: -5px;
+  display: grid; place-items: center;
+  width: 22px; height: 22px;
   border-radius: 50%;
-  background: var(--mla-hue-ink); color: var(--mla-hue-1);
+  border: 2px solid var(--mla-bg);
+  background: var(--mla-hue-ink); color: var(--mla-bg);
   visibility: hidden;
 }
 .mla-profile-check svg { width: 11px; height: 11px; stroke-width: 3; }

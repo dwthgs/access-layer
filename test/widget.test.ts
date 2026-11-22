@@ -369,7 +369,7 @@ describe('profile cards', () => {
     const card = element.shadowRoot?.querySelector('[data-profile="motion"]') as HTMLButtonElement
     expect(card.textContent).toBe('Reduce motion')
     const description = element.shadowRoot?.getElementById(card.getAttribute('aria-describedby') ?? '')
-    expect(description?.textContent).toBe('No animation, muted colour')
+    expect(description?.textContent).toBe('No animation')
     expect(card.contains(description ?? null)).toBe(false)
   })
 })

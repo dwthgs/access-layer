@@ -94,7 +94,7 @@ test('lists the eight profiles in order', async ({ page }) => {
     'Focus',
     'Cognitive',
     'Reduce motion',
-    'Mobility',
+    'Motor',
     'Read aloud',
   ])
 })
@@ -114,13 +114,13 @@ test('the info button explains what each profile turns on', async ({ page }) => 
 })
 
 test('each card describes itself to screen readers', async ({ page }) => {
-  await expect(card(page, 'Reduce motion')).toHaveAccessibleDescription('No animation, muted colour')
+  await expect(card(page, 'Reduce motion')).toHaveAccessibleDescription('No animation')
 })
 
-test('Mobility: big cursor, highlighted links, animation stopped', async ({ page }) => {
+test('Motor: big cursor, highlighted links, animation stopped', async ({ page }) => {
   const base = await measure(page)
   expect(base.spinning).toBe(true)
-  await card(page, 'Mobility').click()
+  await card(page, 'Motor').click()
   const on = await measure(page)
   // On the page background as well as on the text.
   expect(on.cursor.split('|').every((value) => value.includes('url('))).toBe(true)
@@ -178,11 +178,11 @@ test('Cognitive: reading guide, links, no animation, dictionary', async ({ page 
   await expect(widget(page).locator('.mla-dict-definition')).toContainText('A passage.')
 })
 
-test('Reduce motion: animation stopped, colour muted', async ({ page }) => {
+test('Reduce motion: animation stopped, colour left alone', async ({ page }) => {
   await card(page, 'Reduce motion').click()
   const on = await measure(page)
   expect(on.spinning).toBe(false)
-  expect(on.filter).toContain('saturate(0.5)')
+  expect(on.filter).not.toContain('saturate')
 })
 
 test('Focus: reading mask, animation stopped, colour muted', async ({ page }) => {
@@ -195,7 +195,7 @@ test('Focus: reading mask, animation stopped, colour muted', async ({ page }) =>
 
 for (const name of [
   'Low vision', 'Dyslexia', 'Colour blindness', 'Focus', 'Cognitive',
-  'Reduce motion', 'Mobility', 'Read aloud',
+  'Reduce motion', 'Motor', 'Read aloud',
 ]) {
   test(`${name}: switching it off puts the page back`, async ({ page }) => {
     const base = await measure(page)
@@ -222,17 +222,17 @@ test('choosing another profile replaces the first rather than stacking', async (
 })
 
 test('touching a single tile afterwards clears the profile mark', async ({ page }) => {
-  await card(page, 'Mobility').click()
+  await card(page, 'Motor').click()
   await widget(page).getByRole('button', { name: /^Tooltips/ }).click()
-  await expect(card(page, 'Mobility')).toHaveAttribute('aria-pressed', 'false')
+  await expect(card(page, 'Motor')).toHaveAttribute('aria-pressed', 'false')
 })
 
 test('a profile survives a reload', async ({ page }) => {
-  await card(page, 'Reduce motion').click()
+  await card(page, 'Focus').click()
   await page.reload()
   const after = await measure(page)
   expect(after.spinning).toBe(false)
   expect(after.filter).toContain('saturate(0.5)')
   await widget(page).locator('.mla-trigger').click()
-  await expect(card(page, 'Reduce motion')).toHaveAttribute('aria-pressed', 'true')
+  await expect(card(page, 'Focus')).toHaveAttribute('aria-pressed', 'true')
 })

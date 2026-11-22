@@ -46,6 +46,9 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
   Cognitive, Reduce motion, Mobility and Read aloud. The speech tile is
   called Text to speech, since it is not a screen reader. A profile saved under an
   earlier name still opens.
+- **A calmer panel.** A plain header, the profiles in view as a grid as soon
+  as the panel opens, and Reset all, Move widget and the shortcut together in
+  the footer.
 - **Automatic or pinned updates.** `/v1/` follows the newest 1.x release so
   fixes arrive on their own. A pinned version, with its integrity hash, never
   changes.

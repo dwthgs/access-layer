@@ -84,7 +84,6 @@ test.beforeEach(async ({ page }) => {
   await page.evaluate(() => localStorage.clear())
   await page.reload()
   await widget(page).locator('.mla-trigger').click()
-  await widget(page).locator('.mla-profiles-toggle').click()
 })
 
 test('lists the eight profiles in order', async ({ page }) => {
@@ -100,14 +99,9 @@ test('lists the eight profiles in order', async ({ page }) => {
   ])
 })
 
-test('the header collapses and expands the list', async ({ page }) => {
-  const toggle = widget(page).locator('.mla-profiles-toggle')
-  await expect(toggle).toHaveAttribute('aria-expanded', 'true')
-  await toggle.click()
-  await expect(toggle).toHaveAttribute('aria-expanded', 'false')
-  await expect(card(page, 'Read aloud')).toBeHidden()
-  await toggle.click()
-  await expect(card(page, 'Read aloud')).toBeVisible()
+test('the profiles are in view as soon as the panel opens', async ({ page }) => {
+  await expect(card(page, 'Low vision')).toBeVisible()
+  await expect(widget(page).getByRole('heading', { name: 'Profiles' })).toBeVisible()
 })
 
 test('the info button explains what each profile turns on', async ({ page }) => {
@@ -240,6 +234,5 @@ test('a profile survives a reload', async ({ page }) => {
   expect(after.spinning).toBe(false)
   expect(after.filter).toContain('saturate(0.5)')
   await widget(page).locator('.mla-trigger').click()
-  await widget(page).locator('.mla-profiles-toggle').click()
   await expect(card(page, 'Reduce motion')).toHaveAttribute('aria-pressed', 'true')
 })

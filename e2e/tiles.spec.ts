@@ -8,11 +8,11 @@ const widget = (page: Page) => page.locator('access-layer')
 const tile = (page: Page, name: string) =>
   widget(page).getByRole('button', { name: new RegExp(`^${name}(,|$)`) })
 
-/** For each bar: is it painted in the accent colour? */
+/** For each bar: is it filled? A filled bar is painted in the tile's own text colour. */
 async function painted(button: Locator): Promise<boolean[]> {
   return button.locator('.mla-step').evaluateAll((steps) => {
-    const accent = getComputedStyle(steps[0]!.closest('.mla-tile')!.querySelector('.mla-tile-check')!).backgroundColor
-    return steps.map((step) => getComputedStyle(step).backgroundColor === accent)
+    const filled = getComputedStyle(steps[0]!.closest('.mla-tile')!).color
+    return steps.map((step) => getComputedStyle(step).backgroundColor === filled)
   })
 }
 

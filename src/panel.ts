@@ -65,6 +65,8 @@ export function buildPanel(
 
   // ------------------------------------------------------------------ tiles
   const tiles: Tile[] = [
+    // First: the panel draws it as a wide bar above the other tools.
+    { id: 'textScale', labelKey: 'biggerText', iconName: 'text', levels: 4 },
     {
       id: 'screenReader',
       labelKey: 'screenReader',
@@ -85,7 +87,6 @@ export function buildPanel(
     },
     { id: 'smartContrast', labelKey: 'smartContrast', iconName: 'smartContrast', options: [{ value: false }, { value: true }] },
     { id: 'highlightLinks', labelKey: 'highlightLinks', iconName: 'link', options: [{ value: false }, { value: true }] },
-    { id: 'textScale', labelKey: 'biggerText', iconName: 'text', levels: 4 },
     { id: 'letterSpacing', labelKey: 'textSpacing', iconName: 'spacing', levels: 3 },
     { id: 'pauseAnimations', labelKey: 'pauseAnimations', iconName: 'motion', options: [{ value: false }, { value: true }] },
     { id: 'hideImages', labelKey: 'hideImages', iconName: 'image', options: [{ value: false }, { value: true }] },
@@ -167,6 +168,7 @@ export function buildPanel(
     const button = h('button', {
       class: 'mla-tile',
       type: 'button',
+      'data-tile': tile.id,
       onclick: () => activate(tile),
     }, [
       h('span', { class: 'mla-tile-check', 'aria-hidden': 'true', html: icon('check') }),

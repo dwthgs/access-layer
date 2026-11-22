@@ -50,8 +50,8 @@ check in its corner.
 | Colour blindness | High saturation, smart contrast |
 | Focus | Reading mask, paused animations, low saturation |
 | Cognitive | Reading guide, highlighted links, paused animations, dictionary |
-| Reduce motion | Paused animations, low saturation |
-| Mobility | Large cursor, highlighted links, paused animations |
+| Reduce motion | Paused animations |
+| Motor | Large cursor, highlighted links, paused animations |
 | Read aloud | Read aloud on click and focus, tooltips for image and button labels |
 
 A profile starts from the defaults, so choosing one replaces the previous one

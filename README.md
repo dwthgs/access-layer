@@ -61,7 +61,7 @@ Their choices are saved in their own browser and follow them across pages.
 | Language | Page translation into 193 languages |
 
 Eight one-click profiles turn on a sensible group at once: Low vision,
-Dyslexia, Colour blindness, Focus, Cognitive, Reduce motion, Mobility and
+Dyslexia, Colour blindness, Focus, Cognitive, Reduce motion, Motor and
 Read aloud.
 
 Every tool and profile is described in [docs/tools.md](docs/tools.md).

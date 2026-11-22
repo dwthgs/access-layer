@@ -15,6 +15,14 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
 - **A new release no longer takes earlier ones offline.** Publishing kept
   only the newest version, which would have broken sites pinned to an older
   one. The build now stops unless every live release is still included.
+- **Reduce motion only pauses animation.** It also muted colour, which its
+  name did not say. Visitors who want that can turn on Saturation.
+- **The Mobility profile is called Motor.** It is for visitors who find a
+  mouse or pointer hard to use, which Mobility did not say.
+- **Profile names stay on one line** where there is room. The check on a
+  chosen profile moved to its corner, so it no longer takes space from the
+  name.
+
 ## [1.1.0] - 2026-11-23
 
 ### Changed

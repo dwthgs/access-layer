@@ -113,6 +113,31 @@ test('the info button explains what each profile turns on', async ({ page }) => 
   await expect(widget(page).locator('.mla-profile-info')).toContainText('Reading mask, no animation, muted colour')
 })
 
+test('the info popup floats over the panel and closes on a click outside or Escape', async ({ page }) => {
+  const info = widget(page).getByRole('button', { name: 'What each profile turns on' })
+  const popup = widget(page).locator('.mla-profile-info')
+  const first = card(page, 'Low vision')
+  const before = await first.boundingBox()
+
+  await info.click()
+  await expect(popup).toBeVisible()
+  // Nothing in the panel moves to make room for it.
+  expect(await first.boundingBox()).toEqual(before)
+
+  // A click inside it keeps it open; a click on the page closes it.
+  await popup.click()
+  await expect(popup).toBeVisible()
+  await page.mouse.click(5, 5)
+  await expect(popup).toBeHidden()
+  await expect(info).toHaveAttribute('aria-expanded', 'false')
+
+  // Escape closes the popup first and leaves the panel open.
+  await info.click()
+  await page.keyboard.press('Escape')
+  await expect(popup).toBeHidden()
+  await expect(widget(page).locator('.mla-panel')).toHaveAttribute('data-open', '')
+})
+
 test('each card describes itself to screen readers', async ({ page }) => {
   await expect(card(page, 'Reduce motion')).toHaveAccessibleDescription('No animation')
 })

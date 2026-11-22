@@ -201,7 +201,7 @@ button { font: inherit; color: inherit; }
 .mla-collapse[data-open] { display: block; }
 
 .mla-profiles { margin: 6px 0 14px; }
-.mla-profiles-head { display: flex; align-items: center; gap: 6px; margin: 0 4px 8px; }
+.mla-profiles-head { position: relative; display: flex; align-items: center; gap: 6px; margin: 0 4px 8px; }
 .mla-profiles-title { flex: 1; margin: 0; font-size: calc(13px * var(--mla-scale)); font-weight: 700; color: var(--mla-ink-muted); }
 /* The language picker's disclosure arrow. */
 .mla-profiles-caret { display: inline-flex; transition: transform 140ms ease; }
@@ -215,7 +215,16 @@ button { font: inherit; color: inherit; }
 }
 .mla-profiles-info-btn svg { width: 16px; height: 16px; }
 .mla-profiles-info-btn[aria-expanded="true"] { background: var(--mla-ink); color: var(--mla-bg); }
-.mla-profile-info { padding: 0 4px 10px; }
+/* A popup under the heading row, over the cards. */
+.mla-profile-info {
+  position: absolute; z-index: 2;
+  top: calc(100% + 6px); left: -4px; right: -4px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: var(--mla-bg);
+  box-shadow: 0 18px 40px -12px rgba(40,25,10,.4), 0 0 0 1px var(--mla-line);
+}
+.mla-profile-info .mla-hint { margin: 0 0 4px; }
 .mla-profile-info-list { margin: 0; font-size: calc(13px * var(--mla-scale)); }
 .mla-profile-info-list dt { font-weight: 700; margin-top: 6px; }
 .mla-profile-info-list dd { margin: 0; color: var(--mla-ink-muted); }

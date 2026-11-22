@@ -339,6 +339,7 @@ export class AccessLayerElement extends HTMLElement {
   }
 
   private onDocumentClick = (event: MouseEvent): void => {
+    this.panel?.dismiss(event)
     const setting = this.triggerSetting
     if (!setting || setting === 'none') return
     const target = event.target
@@ -377,6 +378,8 @@ export class AccessLayerElement extends HTMLElement {
         pageStructure.close()
         return
       }
+      // The profiles popup closes first; the panel stays.
+      if (this.panel?.dismiss()) return
       if (this.isOpen) this.close()
     }
   }
@@ -409,6 +412,7 @@ export class AccessLayerElement extends HTMLElement {
   close(): void {
     const wasOpen = this.isOpen
     this.panel.panel.removeAttribute('data-open')
+    this.panel.dismiss()
     this.panel.trigger.setAttribute('aria-expanded', 'false')
     this.isOpen = false
     this.syncTriggers()

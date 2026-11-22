@@ -15,6 +15,11 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
 - **The landing page links to the source.** A GitHub icon in the header and a
   link in the footer, with one clear action beside it: Get started.
 
+### Changed
+- **The profiles' information opens as a popup.** It floats over the panel
+  and closes on a click anywhere outside it or on Escape, where it used to
+  push the profiles down.
+
 ## [1.1.1] - 2026-11-23
 
 ### Fixed

@@ -52,6 +52,11 @@ export interface PanelHandles {
   trigger: HTMLButtonElement
   layer: HTMLElement
   update(): void
+  /**
+   * Close the profiles popup. Given an event, only when it happened outside
+   * the popup and its button. Says whether anything closed.
+   */
+  dismiss(event?: Event): boolean
 }
 
 export function buildPanel(
@@ -278,19 +283,31 @@ export function buildPanel(
     'aria-controls': 'mla-profiles-info',
     'aria-label': t('profilesInfo'),
     html: icon('info'),
-    onclick: () => toggleDisclosure(infoButton, profilesInfo),
+    onclick: () => setInfoOpen(!profilesInfo.hasAttribute('data-open')),
   }) as HTMLButtonElement
 
+  // The popup sits in the heading row and floats over the cards, so opening
+  // it moves nothing in the panel.
   const profilesSection = h('section', { class: 'mla-profiles', 'aria-label': t('profiles') }, [
-    h('div', { class: 'mla-profiles-head' }, [h('h3', { class: 'mla-profiles-title', text: t('profiles') }), infoButton]),
-    profilesInfo,
+    h('div', { class: 'mla-profiles-head' }, [
+      h('h3', { class: 'mla-profiles-title', text: t('profiles') }),
+      infoButton,
+      profilesInfo,
+    ]),
     profileList,
   ])
 
-  function toggleDisclosure(control: HTMLElement, region: HTMLElement): void {
-    const open = control.getAttribute('aria-expanded') === 'true'
-    control.setAttribute('aria-expanded', open ? 'false' : 'true')
-    region.toggleAttribute('data-open', !open)
+  function setInfoOpen(open: boolean): void {
+    infoButton.setAttribute('aria-expanded', open ? 'true' : 'false')
+    profilesInfo.toggleAttribute('data-open', open)
+  }
+
+  function dismiss(event?: Event): boolean {
+    if (!profilesInfo.hasAttribute('data-open')) return false
+    const path = event?.composedPath() ?? []
+    if (path.includes(profilesInfo) || path.includes(infoButton)) return false
+    setInfoOpen(false)
+    return true
   }
 
   // ------------------------------------------------------- reader speed row
@@ -548,7 +565,7 @@ export function buildPanel(
     resetButton.style.opacity = isPristine(s) ? '.55' : '1'
   }
 
-  return { root, panel, trigger, layer, update }
+  return { root, panel, trigger, layer, update, dismiss }
 }
 
 /** How many bars a tile draws: its levels, or its options other than off. */

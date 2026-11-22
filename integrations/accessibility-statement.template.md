@@ -27,7 +27,7 @@ conformance, both to the people using the site and to anyone assessing it.]
 Every page offers a set of display adjustments: text size, spacing and
 alignment, contrast and colour modes, a dyslexia-friendly font, reading aids,
 tooltips, a page-structure outline and read-aloud. Open them with the button in
-the corner of the page or by pressing **Ctrl + U**. Your choices are stored in
+the corner of the page or by pressing **Alt + A**. Your choices are stored in
 your browser and are not sent anywhere.
 
 These tools change how this site is presented to you. They do not change how

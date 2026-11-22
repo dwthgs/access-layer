@@ -48,7 +48,7 @@ npm run build        # writes dist/access-layer.iife.js
 <script defer data-access-layer src="/access-layer.iife.js"></script>
 ```
 
-Visitors open the panel with the button or with <kbd>Ctrl</kbd> + <kbd>U</kbd>.
+Visitors open the panel with the button or with <kbd>Alt</kbd> + <kbd>A</kbd>.
 Their choices are saved in their own browser and follow them across pages.
 
 ## Tools

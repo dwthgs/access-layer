@@ -357,8 +357,9 @@ export class AccessLayerElement extends HTMLElement {
 
   // ------------------------------------------------------------ open/close
   private onKeydown = (event: KeyboardEvent): void => {
-    if (event.ctrlKey && !event.altKey && !event.metaKey && event.key.toLowerCase() === 'u') {
-      // In the page's own editors Ctrl + U means Underline: leave it to them.
+    // The physical key: on a Mac, Option + A arrives as the character å.
+    if (event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.code === 'KeyA') {
+      // In the page's own editors Alt + A types that character: leave it to them.
       // The whole composed path, so a textbox host whose editing happens in
       // its own shadow root counts too; never the widget's own fields.
       const path = event.composedPath()

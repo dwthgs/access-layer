@@ -13,7 +13,7 @@ test('keeps working after being moved, and after being removed and re-inserted',
   await expect(widget.locator('.mla-trigger')).toBeVisible()
 
   await page.evaluate(() => document.querySelector('main')!.append(document.querySelector('access-layer')!))
-  await page.keyboard.press('Control+u')
+  await page.keyboard.press('Alt+a')
   await expect(panel).toHaveAttribute('data-open', '')
   await page.keyboard.press('Escape')
 
@@ -25,6 +25,6 @@ test('keeps working after being moved, and after being removed and re-inserted',
   })
   await expect(widget.locator('.mla-trigger')).toBeVisible()
   expect(await widget.locator('.mla-trigger').evaluate((el) => getComputedStyle(el).position)).toBe('fixed')
-  await page.keyboard.press('Control+u')
+  await page.keyboard.press('Alt+a')
   await expect(panel).toHaveAttribute('data-open', '')
 })

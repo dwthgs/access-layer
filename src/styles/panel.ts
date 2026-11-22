@@ -346,7 +346,7 @@ button { font: inherit; color: inherit; }
 }
 .mla-positions button[aria-pressed="true"] { border-color: var(--mla-accent); background: #eef4ff; font-weight: 600; }
 
-/* Language picker, as UserWay's: header with a code badge, then a list. */
+/* Language picker: header with a code badge, then a list. */
 .mla-lang {
   margin: 0 0 10px;
   padding: 10px;

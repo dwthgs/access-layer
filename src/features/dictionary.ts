@@ -325,7 +325,7 @@ function showStatus(text: string): void {
 }
 
 /**
- * One sense at a time, set out the way UserWay does it:
+ * One sense at a time:
  * "**this (pronoun)**: The thing, item, etc. being indicated." with Read and
  * Spell below and, when there is more than one sense, "‹ 1 of 10 ›" beside them.
  */

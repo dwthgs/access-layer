@@ -161,7 +161,7 @@ export function buildPanel(
   for (const tile of tiles) {
     if (!controller.isToolEnabled(tile.id)) continue
     const label = h('span', { class: 'mla-tile-label', text: t(tile.labelKey) })
-    // One bar per step above off, as UserWay draws them, for any tile that
+    // One bar per step above off, for any tile that
     // has more than on and off. Decorative: the state is in the aria-label.
     const steps = Array.from({ length: stepCount(tile) }, () => h('span', { class: 'mla-step' }))
     const button = h('button', {
@@ -224,7 +224,7 @@ export function buildPanel(
   }
 
   // --------------------------------------------------------------- profiles
-  // Laid out as UserWay's: a grey section with a disclosure header and an
+  // A grey section with a disclosure header and an
   // info button, then one plain card per profile. What a profile turns on is
   // in the info panel for everyone and in each card's description for
   // screen readers, instead of in small print on every card.

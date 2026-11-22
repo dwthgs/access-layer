@@ -1,5 +1,5 @@
 /**
- * Tiles with more than on and off show their steps as bars, as UserWay's do,
+ * Tiles with more than on and off show their steps as bars,
  * and every active tile shows a check. Checked by what is actually painted.
  */
 import { expect, test, type Locator, type Page } from '@playwright/test'

@@ -9,7 +9,7 @@
  */
 
 import type { MessageKey } from './i18n'
-import { DEFAULT_STATE, type State } from './state'
+import { DEFAULT_STATE, LEGACY_PROFILES, type State } from './state'
 
 export interface Profile {
   id: string
@@ -20,35 +20,16 @@ export interface Profile {
 }
 
 /**
- * The same eight profiles, in the same order, as UserWay, so visitors moving
- * between sites find what they know. Ids of the original six are unchanged,
- * so a profile saved in a visitor's browser still resolves.
- *
- * One exception: UserWay's "Blind" is called "Read aloud" here (id `blind`
- * kept). Its speech is a reading aid for sighted visitors; offered to blind
- * visitors, it talks over the screen reader they already use (#12).
+ * "Read aloud" is speech for sighted visitors. It is not offered as a profile
+ * for blind visitors: it talks over the screen reader they already use (#12).
  */
 export const PROFILES: Profile[] = [
   {
-    id: 'motor',
-    labelKey: 'profileMotor',
-    hintKey: 'profileMotorHint',
-    icon: 'wheelchair',
-    patch: { cursor: 'big', highlightLinks: true, pauseAnimations: true },
-  },
-  {
-    id: 'blind',
-    labelKey: 'profileReadAloud',
-    hintKey: 'profileReadAloudHint',
-    icon: 'audio',
-    patch: { screenReader: true, tooltips: true },
-  },
-  {
-    id: 'colorBlind',
-    labelKey: 'profileColorBlind',
-    hintKey: 'profileColorBlindHint',
-    icon: 'saturation',
-    patch: { saturation: 'high', smartContrast: true },
+    id: 'vision',
+    labelKey: 'profileVision',
+    hintKey: 'profileVisionHint',
+    icon: 'eye',
+    patch: { textScale: 2, smartContrast: true, highlightLinks: true },
   },
   {
     id: 'dyslexia',
@@ -58,11 +39,18 @@ export const PROFILES: Profile[] = [
     patch: { font: 'dyslexic', letterSpacing: 1, lineHeight: 1, textAlign: 'left', cursor: 'guide' },
   },
   {
-    id: 'vision',
-    labelKey: 'profileVision',
-    hintKey: 'profileVisionHint',
-    icon: 'eye',
-    patch: { textScale: 2, smartContrast: true, highlightLinks: true },
+    id: 'colorBlind',
+    labelKey: 'profileColorBlind',
+    hintKey: 'profileColorBlindHint',
+    icon: 'saturation',
+    patch: { saturation: 'high', smartContrast: true },
+  },
+  {
+    id: 'focus',
+    labelKey: 'profileFocus',
+    hintKey: 'profileFocusHint',
+    icon: 'target',
+    patch: { cursor: 'mask', pauseAnimations: true, saturation: 'low' },
   },
   {
     id: 'cognitive',
@@ -72,24 +60,32 @@ export const PROFILES: Profile[] = [
     patch: { cursor: 'guide', highlightLinks: true, pauseAnimations: true, dictionary: true },
   },
   {
-    id: 'seizure',
-    labelKey: 'profileSeizure',
-    hintKey: 'profileSeizureHint',
+    id: 'motion',
+    labelKey: 'profileMotion',
+    hintKey: 'profileMotionHint',
     icon: 'brain',
     patch: { pauseAnimations: true, saturation: 'low' },
   },
   {
-    id: 'adhd',
-    labelKey: 'profileAdhd',
-    hintKey: 'profileAdhdHint',
-    icon: 'target',
-    patch: { cursor: 'mask', pauseAnimations: true, saturation: 'low' },
+    id: 'motor',
+    labelKey: 'profileMobility',
+    hintKey: 'profileMobilityHint',
+    icon: 'wheelchair',
+    patch: { cursor: 'big', highlightLinks: true, pauseAnimations: true },
+  },
+  {
+    id: 'readAloud',
+    labelKey: 'profileReadAloud',
+    hintKey: 'profileReadAloudHint',
+    icon: 'audio',
+    patch: { screenReader: true, tooltips: true },
   },
 ]
 
 /** Build the full state a profile represents, preserving widget preferences. */
 export function applyProfile(current: State, id: string | null): State {
-  const profile = PROFILES.find((entry) => entry.id === id)
+  // Old ids still work, for embedders' code written before the rename.
+  const profile = PROFILES.find((entry) => entry.id === (LEGACY_PROFILES[id ?? ''] ?? id))
   const base: State = {
     ...DEFAULT_STATE,
     lang: current.lang,

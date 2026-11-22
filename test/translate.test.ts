@@ -122,7 +122,7 @@ afterEach(async () => {
 })
 
 describe('languages', () => {
-  it("offers UserWay's list, each in its own language", () => {
+  it("offers every language, each in its own language", () => {
     expect(translate.LANGUAGES.length).toBeGreaterThanOrEqual(40)
     expect(translate.findLanguage('fr')?.name).toBe('Français')
     expect(translate.findLanguage('am')?.name).toBe('አማርኛ')

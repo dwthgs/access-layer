@@ -750,7 +750,7 @@ describe('words that only point at another word', () => {
     ],
   })
 
-  it('shows the base word\'s meaning, as UserWay does', async () => {
+  it('shows the base word\'s meaning', async () => {
     fetchMock
       .mockImplementationOnce(async () => json(formOf('invitation')))
       .mockImplementationOnce(async () => json(wiktionary('The act of inviting.')))

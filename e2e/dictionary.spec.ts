@@ -280,7 +280,7 @@ test('pages through several senses', async ({ page }) => {
   await expect(count).toHaveText('2 of 3')
 })
 
-test('lays out like UserWay: Read and Spell on the left, the pager on the right', async ({ page }) => {
+test('lays out Read and Spell on the left, the pager on the right', async ({ page }) => {
   await serve(page, {
     paragraph: { en: [{ partOfSpeech: 'Noun', definitions: [{ definition: 'A passage.' }, { definition: 'A mark.' }] }] },
   })

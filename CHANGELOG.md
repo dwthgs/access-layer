@@ -14,7 +14,7 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
 ### Added
 - **The widget.** One script tag adds an accessibility button to any website.
   Visitors get seventeen tools and eight one-click profiles, a skip link, and
-  Ctrl + U to open the panel. Their choices are saved in their own browser and
+  Alt + A to open the panel. Their choices are saved in their own browser and
   follow them from page to page.
 - **Reading tools.** Text size, line height, letter spacing, text alignment,
   readable and dyslexia-friendly fonts, read aloud, and a dictionary that

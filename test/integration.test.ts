@@ -202,7 +202,7 @@ describe('host-app triggers', () => {
     document.body.append(field)
     const element = mount()
     field.focus()
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'u', ctrlKey: true, bubbles: true }))
+    document.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyA', altKey: true, bubbles: true }))
     expect(panelOpen(element)).toBe(true)
     element.close()
     expect(document.activeElement).toBe(field)

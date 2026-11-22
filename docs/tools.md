@@ -67,8 +67,8 @@ they already use.
 ## Also included
 
 - A **skip to main content** link.
-- **Ctrl + U** opens the panel, except while typing in a field or editor,
-  where it stays Underline.
+- **Alt + A** opens the panel, except while typing in a field or editor,
+  where the keys are left to the page.
 - Six positions for the button, with a separate position for phones.
 - The widget's own labels in English or Spanish.
 - Settings that persist across pages and visits.

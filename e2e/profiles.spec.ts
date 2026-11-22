@@ -84,30 +84,24 @@ test.beforeEach(async ({ page }) => {
   await page.evaluate(() => localStorage.clear())
   await page.reload()
   await widget(page).locator('.mla-trigger').click()
-  await widget(page).locator('.mla-profiles-toggle').click()
 })
 
-test('lists the eight profiles in UserWay\'s order', async ({ page }) => {
+test('lists the eight profiles in order', async ({ page }) => {
   await expect(widget(page).locator('.mla-profile-name')).toHaveText([
-    'Motor Impaired',
-    'Read aloud',
-    'Color Blind',
-    'Dyslexia',
     'Low vision',
-    'Cognitive & Learning',
-    'Seizure & Epileptic',
-    'ADHD',
+    'Dyslexia',
+    'Colour blindness',
+    'Focus',
+    'Cognitive',
+    'Reduce motion',
+    'Motor',
+    'Read aloud',
   ])
 })
 
-test('the header collapses and expands the list', async ({ page }) => {
-  const toggle = widget(page).locator('.mla-profiles-toggle')
-  await expect(toggle).toHaveAttribute('aria-expanded', 'true')
-  await toggle.click()
-  await expect(toggle).toHaveAttribute('aria-expanded', 'false')
-  await expect(card(page, 'Read aloud')).toBeHidden()
-  await toggle.click()
-  await expect(card(page, 'Read aloud')).toBeVisible()
+test('the profiles are in view as soon as the panel opens', async ({ page }) => {
+  await expect(card(page, 'Low vision')).toBeVisible()
+  await expect(widget(page).getByRole('heading', { name: 'Profiles' })).toBeVisible()
 })
 
 test('the info button explains what each profile turns on', async ({ page }) => {
@@ -120,13 +114,13 @@ test('the info button explains what each profile turns on', async ({ page }) => 
 })
 
 test('each card describes itself to screen readers', async ({ page }) => {
-  await expect(card(page, 'Seizure & Epileptic')).toHaveAccessibleDescription('No animation, muted colour')
+  await expect(card(page, 'Reduce motion')).toHaveAccessibleDescription('No animation')
 })
 
-test('Motor Impaired: big cursor, highlighted links, animation stopped', async ({ page }) => {
+test('Motor: big cursor, highlighted links, animation stopped', async ({ page }) => {
   const base = await measure(page)
   expect(base.spinning).toBe(true)
-  await card(page, 'Motor Impaired').click()
+  await card(page, 'Motor').click()
   const on = await measure(page)
   // On the page background as well as on the text.
   expect(on.cursor.split('|').every((value) => value.includes('url('))).toBe(true)
@@ -143,9 +137,9 @@ test('Read aloud: reads what is clicked aloud, and shows button descriptions', a
   await expect(widget(page).locator('.mla-tooltip')).toHaveText('Save the current draft')
 })
 
-test('Color Blind: stronger colour and corrected contrast', async ({ page }) => {
+test('Colour blindness: stronger colour and corrected contrast', async ({ page }) => {
   const base = await measure(page)
-  await card(page, 'Color Blind').click()
+  await card(page, 'Colour blindness').click()
   const on = await measure(page)
   expect(on.filter).toContain('saturate(2)')
   expect(on.faintColor).not.toBe(base.faintColor)
@@ -172,9 +166,9 @@ test('Low vision: bigger text, corrected contrast, highlighted links', async ({ 
   expect(on.linkLook).not.toBe(base.linkLook)
 })
 
-test('Cognitive & Learning: reading guide, links, no animation, dictionary', async ({ page }) => {
+test('Cognitive: reading guide, links, no animation, dictionary', async ({ page }) => {
   const base = await measure(page)
-  await card(page, 'Cognitive & Learning').click()
+  await card(page, 'Cognitive').click()
   const on = await measure(page)
   expect(on.guide).toBe(true)
   expect(on.linkLook).not.toBe(base.linkLook)
@@ -184,15 +178,15 @@ test('Cognitive & Learning: reading guide, links, no animation, dictionary', asy
   await expect(widget(page).locator('.mla-dict-definition')).toContainText('A passage.')
 })
 
-test('Seizure & Epileptic: animation stopped, colour muted', async ({ page }) => {
-  await card(page, 'Seizure & Epileptic').click()
+test('Reduce motion: animation stopped, colour left alone', async ({ page }) => {
+  await card(page, 'Reduce motion').click()
   const on = await measure(page)
   expect(on.spinning).toBe(false)
-  expect(on.filter).toContain('saturate(0.5)')
+  expect(on.filter).not.toContain('saturate')
 })
 
-test('ADHD: reading mask, animation stopped, colour muted', async ({ page }) => {
-  await card(page, 'ADHD').click()
+test('Focus: reading mask, animation stopped, colour muted', async ({ page }) => {
+  await card(page, 'Focus').click()
   const on = await measure(page)
   expect(on.mask).toBe(true)
   expect(on.spinning).toBe(false)
@@ -200,8 +194,8 @@ test('ADHD: reading mask, animation stopped, colour muted', async ({ page }) => 
 })
 
 for (const name of [
-  'Motor Impaired', 'Read aloud', 'Color Blind', 'Dyslexia', 'Low vision',
-  'Cognitive & Learning', 'Seizure & Epileptic', 'ADHD',
+  'Low vision', 'Dyslexia', 'Colour blindness', 'Focus', 'Cognitive',
+  'Reduce motion', 'Motor', 'Read aloud',
 ]) {
   test(`${name}: switching it off puts the page back`, async ({ page }) => {
     const base = await measure(page)
@@ -218,9 +212,9 @@ for (const name of [
 }
 
 test('choosing another profile replaces the first rather than stacking', async ({ page }) => {
-  await card(page, 'ADHD').click()
+  await card(page, 'Focus').click()
   await card(page, 'Low vision').click()
-  await expect(card(page, 'ADHD')).toHaveAttribute('aria-pressed', 'false')
+  await expect(card(page, 'Focus')).toHaveAttribute('aria-pressed', 'false')
   await expect(card(page, 'Low vision')).toHaveAttribute('aria-pressed', 'true')
   const on = await measure(page)
   expect(on.mask).toBe(false)
@@ -228,18 +222,17 @@ test('choosing another profile replaces the first rather than stacking', async (
 })
 
 test('touching a single tile afterwards clears the profile mark', async ({ page }) => {
-  await card(page, 'Motor Impaired').click()
+  await card(page, 'Motor').click()
   await widget(page).getByRole('button', { name: /^Tooltips/ }).click()
-  await expect(card(page, 'Motor Impaired')).toHaveAttribute('aria-pressed', 'false')
+  await expect(card(page, 'Motor')).toHaveAttribute('aria-pressed', 'false')
 })
 
 test('a profile survives a reload', async ({ page }) => {
-  await card(page, 'Seizure & Epileptic').click()
+  await card(page, 'Focus').click()
   await page.reload()
   const after = await measure(page)
   expect(after.spinning).toBe(false)
   expect(after.filter).toContain('saturate(0.5)')
   await widget(page).locator('.mla-trigger').click()
-  await widget(page).locator('.mla-profiles-toggle').click()
-  await expect(card(page, 'Seizure & Epileptic')).toHaveAttribute('aria-pressed', 'true')
+  await expect(card(page, 'Focus')).toHaveAttribute('aria-pressed', 'true')
 })

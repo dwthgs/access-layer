@@ -85,6 +85,13 @@ describe('applyProfile', () => {
     expect(result.oversized).toBe(true)
   })
 
+  it('still accepts the ids profiles had before they were renamed', () => {
+    expect(applyProfile(DEFAULT_STATE, 'adhd').profile).toBe('focus')
+    expect(applyProfile(DEFAULT_STATE, 'seizure').profile).toBe('motion')
+    expect(applyProfile(DEFAULT_STATE, 'blind').profile).toBe('readAloud')
+    expect(sanitize({ profile: 'adhd' }).profile).toBe('focus')
+  })
+
   it('clears everything when the profile is turned off', () => {
     const result = applyProfile({ ...DEFAULT_STATE, textScale: 3 }, null)
     expect(result.textScale).toBe(0)

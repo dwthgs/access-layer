@@ -1,5 +1,5 @@
 /**
- * Picking a language translates the page, as UserWay does. Both engines are
+ * Picking a language translates the page. Both engines are
  * replaced with stand-ins so the suite is deterministic offline; set
  * TRANSLATE_LIVE=1 to add a test against Google's real website translator.
  */
@@ -138,7 +138,7 @@ test.describe('on the device', () => {
     await expect(toggle(page)).toHaveAccessibleName('Language: Deutsch (German)')
   })
 
-  test('looks like UserWay: badge and name in the header, search, then the list', async ({ page }) => {
+  test('shows badge and name in the header, search, then the list', async ({ page }) => {
     await expect(toggle(page).locator('.mla-lang-badge')).toHaveText('EN')
     await toggle(page).click()
     await expect(widget(page).getByRole('combobox')).toHaveAttribute('placeholder', 'Search language')

@@ -1,5 +1,5 @@
 /**
- * The language picker, laid out as UserWay's: a header with the current
+ * The language picker: a header with the current
  * language, and a searchable list that works from the keyboard.
  */
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'

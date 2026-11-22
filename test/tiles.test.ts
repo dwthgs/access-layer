@@ -51,7 +51,7 @@ describe('step bars', () => {
     expect(bars(tile(name))).toBe(count)
   })
 
-  it.each(['Screen reader', 'Smart contrast', 'Highlight links', 'Pause animations', 'Hide images', 'Tooltips', 'Dictionary'])(
+  it.each(['Text to speech', 'Smart contrast', 'Highlight links', 'Pause animations', 'Hide images', 'Tooltips', 'Dictionary'])(
     'on/off tile %s has none',
     (name) => {
       expect(tile(name).querySelector('.mla-steps')).toBeNull()
@@ -82,7 +82,7 @@ describe('step bars', () => {
     expect(filled(tile('Bigger text'))).toBe(0)
   })
 
-  it('fill up to the chosen option, as in UserWay', () => {
+  it('fill up to the chosen option', () => {
     tile('Saturation').click()
     expect(filled(tile('Saturation'))).toBe(1) // Low
     tile('Saturation').click()
@@ -132,7 +132,7 @@ describe('the tile label', () => {
     expect(label(tile('Bigger text'))).toBe('Bigger text')
   })
 
-  it('shows the multiplier on Line height, as UserWay does', () => {
+  it('shows the multiplier on Line height', () => {
     expect(label(tile('Line height'))).toBe('Line height')
     tile('Line height').click()
     expect(label(tile('Line height'))).toBe('Line height 1.5\u00d7')

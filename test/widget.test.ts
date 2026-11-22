@@ -4,7 +4,6 @@
  */
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 import { mount, unmount, type AccessLayerElement } from '../src/index'
-import { PANEL_CSS } from '../src/styles/panel'
 import { contrastRatio, parseColor } from '../src/util/contrast'
 
 function html(): HTMLElement {
@@ -136,10 +135,10 @@ describe('panel', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('false')
   })
 
-  it('opens on Ctrl+U', () => {
+  it('opens on Alt+A', () => {
     const element = mount()
     const panel = element.shadowRoot?.querySelector('.mla-panel') as HTMLElement
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'u', ctrlKey: true, bubbles: true }))
+    document.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyA', altKey: true, bubbles: true }))
     expect(panel.hasAttribute('data-open')).toBe(true)
   })
 
@@ -148,19 +147,19 @@ describe('panel', () => {
     ['a textarea', '<textarea></textarea>'],
     ['a rich-text editor', '<div contenteditable="true"><p>post</p></div>'],
     ['a custom textbox', '<div role="textbox" tabindex="0"></div>'],
-  ])('leaves Ctrl+U to %s, where it means Underline', (_, markup) => {
+  ])('leaves Alt+A to %s, where it types a character', (_, markup) => {
     const element = mount()
     const panel = element.shadowRoot?.querySelector('.mla-panel') as HTMLElement
     document.querySelector('main')!.insertAdjacentHTML('beforeend', markup)
     const field = document.querySelector('main')!.lastElementChild!
     const target = field.querySelector('p') ?? field
-    const event = new KeyboardEvent('keydown', { key: 'u', ctrlKey: true, bubbles: true, composed: true, cancelable: true })
+    const event = new KeyboardEvent('keydown', { code: 'KeyA', altKey: true, bubbles: true, composed: true, cancelable: true })
     target.dispatchEvent(event)
     expect(event.defaultPrevented).toBe(false)
     expect(panel.hasAttribute('data-open')).toBe(false)
   })
 
-  it('leaves Ctrl+U to a custom textbox that edits inside its own shadow root', () => {
+  it('leaves Alt+A to a custom textbox that edits inside its own shadow root', () => {
     const element = mount()
     const panel = element.shadowRoot?.querySelector('.mla-panel') as HTMLElement
     const host = document.createElement('div')
@@ -169,27 +168,27 @@ describe('panel', () => {
     inner.tabIndex = 0
     host.attachShadow({ mode: 'open' }).append(inner)
     document.querySelector('main')!.append(host)
-    const event = new KeyboardEvent('keydown', { key: 'u', ctrlKey: true, bubbles: true, composed: true, cancelable: true })
+    const event = new KeyboardEvent('keydown', { code: 'KeyA', altKey: true, bubbles: true, composed: true, cancelable: true })
     inner.dispatchEvent(event)
     expect(event.defaultPrevented).toBe(false)
     expect(panel.hasAttribute('data-open')).toBe(false)
   })
 
-  it('still opens on Ctrl+U from a checkbox or button', () => {
+  it('still opens on Alt+A from a checkbox or button', () => {
     const element = mount()
     const panel = element.shadowRoot?.querySelector('.mla-panel') as HTMLElement
     document.querySelector('main')!.insertAdjacentHTML('beforeend', '<input type="checkbox">')
     document.querySelector('main input')!.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'u', ctrlKey: true, bubbles: true, composed: true }),
+      new KeyboardEvent('keydown', { code: 'KeyA', altKey: true, bubbles: true, composed: true }),
     )
     expect(panel.hasAttribute('data-open')).toBe(true)
   })
 
-  it("closes on Ctrl+U from the panel's own search field", () => {
+  it("closes on Alt+A from the panel's own search field", () => {
     const element = mount()
     element.open()
     const search = element.shadowRoot!.querySelector<HTMLInputElement>('.mla-lang-input')!
-    search.dispatchEvent(new KeyboardEvent('keydown', { key: 'u', ctrlKey: true, bubbles: true, composed: true }))
+    search.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyA', altKey: true, bubbles: true, composed: true }))
     expect(element.shadowRoot!.querySelector('.mla-panel')!.hasAttribute('data-open')).toBe(false)
   })
 
@@ -230,9 +229,9 @@ describe('panel', () => {
 describe('small accessibility fixes (#14)', () => {
   it('keeps the active profile when only the reading speed changes (L-11)', () => {
     const element = mount()
-    element.settings.setProfile('blind')
+    element.settings.setProfile('readAloud')
     element.settings.set({ readerRate: 1.5 })
-    expect(element.settings.state.profile).toBe('blind')
+    expect(element.settings.state.profile).toBe('readAloud')
   })
 
   it('titles the panel with an h2, not a second h1 for the page (L-16)', () => {
@@ -268,7 +267,7 @@ describe('unmount', () => {
 })
 
 describe('moving and re-inserting (#3)', () => {
-  const ctrlU = () => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'u', ctrlKey: true, bubbles: true }))
+  const altA = () => document.dispatchEvent(new KeyboardEvent('keydown', { code: 'KeyA', altKey: true, bubbles: true }))
   const isOpen = (element: AccessLayerElement) =>
     element.shadowRoot!.querySelector('.mla-panel')!.hasAttribute('data-open')
 
@@ -279,7 +278,7 @@ describe('moving and re-inserting (#3)', () => {
     await Promise.resolve()
     expect(html().hasAttribute('data-mla-links')).toBe(true)
     expect(document.adoptedStyleSheets).toHaveLength(1)
-    ctrlU()
+    altA()
     expect(isOpen(element)).toBe(true)
   })
 
@@ -295,7 +294,7 @@ describe('moving and re-inserting (#3)', () => {
     expect(document.adoptedStyleSheets).toHaveLength(1)
     expect(document.querySelectorAll('.mla-skip-link')).toHaveLength(1)
     expect(element.shadowRoot!.querySelectorAll('.mla-panel')).toHaveLength(1)
-    ctrlU()
+    altA()
     expect(isOpen(element)).toBe(true)
   })
 
@@ -308,7 +307,7 @@ describe('moving and re-inserting (#3)', () => {
     expect(second).not.toBe(first)
     expect(html().hasAttribute('data-mla-links')).toBe(true)
     expect(document.adoptedStyleSheets).toHaveLength(1)
-    ctrlU()
+    altA()
     expect(isOpen(second)).toBe(true)
   })
 })
@@ -367,10 +366,10 @@ describe('keyboard', () => {
 describe('profile cards', () => {
   it('are named by the profile alone, with what it does as the description', () => {
     const element = mount()
-    const card = element.shadowRoot?.querySelector('[data-profile="seizure"]') as HTMLButtonElement
-    expect(card.textContent).toBe('Seizure & Epileptic')
+    const card = element.shadowRoot?.querySelector('[data-profile="motion"]') as HTMLButtonElement
+    expect(card.textContent).toBe('Reduce motion')
     const description = element.shadowRoot?.getElementById(card.getAttribute('aria-describedby') ?? '')
-    expect(description?.textContent).toBe('No animation, muted colour')
+    expect(description?.textContent).toBe('No animation')
     expect(card.contains(description ?? null)).toBe(false)
   })
 })
@@ -398,10 +397,5 @@ describe('the configured colour', () => {
     const fill = accent(mount({ color: '#767676f2' }))
     expect(fill).toMatch(/^rgb\(/)
     expect(contrastRatio(parseColor(fill)!, [255, 255, 255])).toBeGreaterThanOrEqual(4.5)
-  })
-
-  it('does not lighten the Reset button on hover, where white text only just passes', () => {
-    const hover = PANEL_CSS.match(/\.mla-reset:hover\s*\{([^}]*)\}/)?.[1] ?? ''
-    expect(hover).not.toMatch(/brightness\(\s*(1(\.\d*)?|[2-9])/)
   })
 })

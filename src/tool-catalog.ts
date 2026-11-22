@@ -5,7 +5,7 @@ export const tools = [
   { id: 'letterSpacing', name: 'Letter spacing', description: 'Increase the space between characters.', icon: 'spacing', group: 'Reading & content' },
   { id: 'textAlign', name: 'Text alignment', description: 'Choose a comfortable reading alignment.', icon: 'align', group: 'Reading & content' },
   { id: 'font', name: 'Readable fonts', description: 'Switch to legible or dyslexia-friendly type.', icon: 'dyslexia', group: 'Reading & content' },
-  { id: 'screenReader', name: 'Read aloud', description: 'Listen to page text with browser speech.', icon: 'audio', group: 'Reading & content' },
+  { id: 'screenReader', name: 'Text to speech', description: 'Listen to page text with browser speech.', icon: 'audio', group: 'Reading & content' },
   { id: 'dictionary', name: 'Dictionary', description: 'Look up selected words using your endpoint.', icon: 'book', group: 'Reading & content' },
   { id: 'contrast', name: 'Contrast', description: 'Choose light, dark or inverted colors.', icon: 'contrast', group: 'Color & focus' },
   { id: 'smartContrast', name: 'Smart contrast', description: 'Adjust text contrast against its background.', icon: 'smartContrast', group: 'Color & focus' },

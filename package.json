@@ -1,6 +1,6 @@
 {
   "name": "access-layer",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Self-hosted, dependency-free accessibility widget. A drop-in replacement for UserWay.",
   "license": "MIT",
   "private": true,
@@ -35,7 +35,7 @@
     "check:release": "node scripts/check-release.mjs",
     "serve:prod-like": "npm run build && node scripts/build-site.mjs && wrangler dev -c wrangler.cdn.toml --port 5005",
     "build:app": "tsc --noEmit && vite build --config vite.app.config.ts",
-    "deploy:site": "npm run build && rm -rf site && node scripts/build-site.mjs --channel=production && npm run build:app && cp -R site/v* site/versions.json site/_headers dist-app/ && wrangler pages deploy --branch main"
+    "deploy:site": "npm run build && node scripts/build-site.mjs --channel=production && npm run build:app && cp -R site/v* site/versions.json site/_headers dist-app/ && wrangler pages deploy --branch main"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

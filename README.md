@@ -48,7 +48,7 @@ npm run build        # writes dist/access-layer.iife.js
 <script defer data-access-layer src="/access-layer.iife.js"></script>
 ```
 
-Visitors open the panel with the button or with <kbd>Ctrl</kbd> + <kbd>U</kbd>.
+Visitors open the panel with the button or with <kbd>Alt</kbd> + <kbd>A</kbd>.
 Their choices are saved in their own browser and follow them across pages.
 
 ## Tools
@@ -60,9 +60,9 @@ Their choices are saved in their own browser and follow them across pages.
 | Navigation | Large cursor with reading mask and guide, tooltips, page structure |
 | Language | Page translation into 193 languages |
 
-Eight one-click profiles turn on a sensible group at once: Motor Impaired,
-Read aloud, Color Blind, Dyslexia, Low vision, Cognitive & Learning,
-Seizure & Epileptic and ADHD.
+Eight one-click profiles turn on a sensible group at once: Low vision,
+Dyslexia, Colour blindness, Focus, Cognitive, Reduce motion, Motor and
+Read aloud.
 
 Every tool and profile is described in [docs/tools.md](docs/tools.md).
 

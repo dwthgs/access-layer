@@ -1,8 +1,7 @@
 /**
  * Line Height.
  *
- * Three steps, 1.5×, 1.75× and 2× the page's own spacing, as UserWay does
- * them. A fixed value such as `line-height: 1.6 !important` does nothing on a
+ * Three steps, 1.5×, 1.75× and 2× the page's own spacing. A fixed value such as `line-height: 1.6 !important` does nothing on a
  * page that is already set at 1.6 (and tightens one set looser), so this
  * measures each element's own line height and multiplies it instead.
  *

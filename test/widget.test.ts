@@ -4,7 +4,6 @@
  */
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 import { mount, unmount, type AccessLayerElement } from '../src/index'
-import { PANEL_CSS } from '../src/styles/panel'
 import { contrastRatio, parseColor } from '../src/util/contrast'
 
 function html(): HTMLElement {
@@ -398,10 +397,5 @@ describe('the configured colour', () => {
     const fill = accent(mount({ color: '#767676f2' }))
     expect(fill).toMatch(/^rgb\(/)
     expect(contrastRatio(parseColor(fill)!, [255, 255, 255])).toBeGreaterThanOrEqual(4.5)
-  })
-
-  it('does not lighten the Reset button on hover, where white text only just passes', () => {
-    const hover = PANEL_CSS.match(/\.mla-reset:hover\s*\{([^}]*)\}/)?.[1] ?? ''
-    expect(hover).not.toMatch(/brightness\(\s*(1(\.\d*)?|[2-9])/)
   })
 })

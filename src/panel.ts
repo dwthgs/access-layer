@@ -65,6 +65,8 @@ export function buildPanel(
 
   // ------------------------------------------------------------------ tiles
   const tiles: Tile[] = [
+    // First: the panel draws it as a wide bar above the other tools.
+    { id: 'textScale', labelKey: 'biggerText', iconName: 'text', levels: 4 },
     {
       id: 'screenReader',
       labelKey: 'screenReader',
@@ -85,7 +87,6 @@ export function buildPanel(
     },
     { id: 'smartContrast', labelKey: 'smartContrast', iconName: 'smartContrast', options: [{ value: false }, { value: true }] },
     { id: 'highlightLinks', labelKey: 'highlightLinks', iconName: 'link', options: [{ value: false }, { value: true }] },
-    { id: 'textScale', labelKey: 'biggerText', iconName: 'text', levels: 4 },
     { id: 'letterSpacing', labelKey: 'textSpacing', iconName: 'spacing', levels: 3 },
     { id: 'pauseAnimations', labelKey: 'pauseAnimations', iconName: 'motion', options: [{ value: false }, { value: true }] },
     { id: 'hideImages', labelKey: 'hideImages', iconName: 'image', options: [{ value: false }, { value: true }] },
@@ -167,6 +168,7 @@ export function buildPanel(
     const button = h('button', {
       class: 'mla-tile',
       type: 'button',
+      'data-tile': tile.id,
       onclick: () => activate(tile),
     }, [
       h('span', { class: 'mla-tile-check', 'aria-hidden': 'true', html: icon('check') }),
@@ -224,11 +226,11 @@ export function buildPanel(
   }
 
   // --------------------------------------------------------------- profiles
-  // A grey section with a disclosure header and an
-  // info button, then one plain card per profile. What a profile turns on is
-  // in the info panel for everyone and in each card's description for
-  // screen readers, instead of in small print on every card.
-  const profileList = h('div', { class: 'mla-collapse mla-profile-list', id: 'mla-profiles' })
+  // A heading with an info button, then the profiles as a grid that is
+  // always in view. What a profile turns on is in the info panel for everyone
+  // and in each card's description for screen readers, instead of in small
+  // print on every card.
+  const profileList = h('div', { class: 'mla-profile-list' })
   // Descriptions live outside the buttons: inside, they would become part of
   // each button's accessible name ("Blind Reads the page aloud…").
   // aria-describedby still reads them while they are hidden.
@@ -269,18 +271,6 @@ export function buildPanel(
     ),
   ])
 
-  const profilesToggle = h('button', {
-    class: 'mla-profiles-toggle',
-    type: 'button',
-    'aria-expanded': 'false',
-    'aria-controls': 'mla-profiles',
-    onclick: () => toggleDisclosure(profilesToggle, profileList),
-  }, [
-    h('span', { class: 'mla-profiles-badge', html: icon('accessibility') }),
-    h('span', { class: 'mla-profiles-title', text: t('profiles') }),
-    h('span', { class: 'mla-profiles-caret', html: icon('caret') }),
-  ]) as HTMLButtonElement
-
   const infoButton = h('button', {
     class: 'mla-profiles-info-btn',
     type: 'button',
@@ -292,7 +282,7 @@ export function buildPanel(
   }) as HTMLButtonElement
 
   const profilesSection = h('section', { class: 'mla-profiles', 'aria-label': t('profiles') }, [
-    h('div', { class: 'mla-profiles-head' }, [profilesToggle, infoButton]),
+    h('div', { class: 'mla-profiles-head' }, [h('h3', { class: 'mla-profiles-title', text: t('profiles') }), infoButton]),
     profilesInfo,
     profileList,
   ])
@@ -433,9 +423,13 @@ export function buildPanel(
   }) as HTMLAnchorElement
 
   const footer = h('div', { class: 'mla-foot' }, [
-    resetButton,
+    h('div', { class: 'mla-foot-links' }, [
+      resetButton,
+      moveButton,
+      statementLink,
+      h('span', { class: 'mla-shortcut', text: t('shortcut') }),
+    ]),
     positionGrid,
-    h('div', { class: 'mla-foot-links' }, [moveButton, statementLink]),
   ])
 
   // ----------------------------------------------------------------- panel
@@ -457,7 +451,6 @@ export function buildPanel(
     h('div', { class: 'mla-head' }, [
       // h2: an h1 here would give every page a second top-level heading.
       h('h2', { class: 'mla-title', text: t('title') }),
-      h('span', { class: 'mla-shortcut', text: t('shortcut') }),
       closeButton,
     ]),
     h('div', { class: 'mla-body' }, [
@@ -465,9 +458,9 @@ export function buildPanel(
       translateStatus,
       reloadButton,
       profilesSection,
-      oversizedRow,
       grid,
       speedRow,
+      oversizedRow,
     ]),
     footer,
   ])

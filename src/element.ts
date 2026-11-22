@@ -451,7 +451,7 @@ function focusKey(el: Element | null): string | null {
     const value = el.getAttribute(name)
     if (value) return `[${name}="${CSS.escape(value)}"]`
   }
-  const stable = ['mla-lang-toggle', 'mla-trigger', 'mla-profiles-toggle', 'mla-icon-btn', 'mla-reset']
+  const stable = ['mla-lang-toggle', 'mla-trigger', 'mla-icon-btn', 'mla-reset']
   const cls = stable.find((name) => el.classList.contains(name))
   return cls ? `.${cls}` : null
 }

@@ -11,6 +11,11 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+### Fixed
+- **A new release no longer takes earlier ones offline.** Publishing kept
+  only the newest version, which would have broken sites pinned to an older
+  one. The build now stops unless every live release is still included.
+
 ### Added
 - **The widget.** One script tag adds an accessibility button to any website.
   Visitors get seventeen tools and eight one-click profiles, a skip link, and

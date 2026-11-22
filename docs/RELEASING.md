@@ -43,7 +43,12 @@ than every `v*` tag and that `CHANGELOG.md` has a section for it.
 2. Run `npm run check:release`, the unit tests, and the browser tests in all
    three browsers (`npm run test:e2e`).
 3. Merge, then tag the merge commit: `git tag vX.Y.Z && git push --tags`.
-4. Publish: `npm run deploy:site`.
+4. Publish: `npm run deploy:site`. Publishing replaces the whole site, so
+   `site/` must already hold every earlier release. The build checks this
+   against the live `versions.json` and stops if one is missing or differs.
+   To restore a release, download its folder from the live site into
+   `site/vX.Y.Z/`: `access-layer.iife.js`, its `.map`, `integrity.json` and
+   the four files in `fonts/`.
 5. Load the published file and compare it with the hash in `integrity.json`.
 6. Use `node scripts/check-release.mjs --notes` for the release notes.
 

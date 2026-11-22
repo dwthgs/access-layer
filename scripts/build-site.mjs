@@ -36,6 +36,7 @@ const FONTS = resolve(ROOT, 'public/fonts')
 const SITE = resolve(ROOT, 'site')
 const SHIPPED = ['access-layer.iife.js', 'access-layer.iife.js.map']
 const RELEASE_DIR = /^v(\d+)\.(\d+)\.(\d+)$/
+const LIVE = 'https://getaccesslayer.pages.dev'
 
 const channel = (process.argv.find((a) => a.startsWith('--channel=')) ?? '--channel=local').split('=')[1]
 if (!['production', 'local'].includes(channel)) {
@@ -60,6 +61,7 @@ if (fonts.length === 0) {
 // starts clean.
 if (channel !== 'production') await rm(SITE, { recursive: true, force: true })
 await mkdir(SITE, { recursive: true })
+if (channel === 'production') await requireLiveReleases()
 
 const dirName = channel === 'production' ? `v${version}` : `v${version}-${channel}.${shortSha()}`
 const target = resolve(SITE, dirName)
@@ -132,6 +134,28 @@ async function integrityOf(dir) {
     out[file] = 'sha384-' + createHash('sha384').update(await readFile(resolve(dir, file))).digest('base64')
   }
   return out
+}
+
+/**
+ * Publishing replaces the whole site, so a release that is live but missing
+ * from site/, or different there, would be taken down or changed under the
+ * sites pinned to it. Refuse to build rather than do that.
+ */
+async function requireLiveReleases() {
+  let live
+  try {
+    const res = await fetch(`${LIVE}/versions.json`, { signal: AbortSignal.timeout(15_000) })
+    // No list yet: nothing has been published, so there is nothing to keep.
+    live = res.status === 404 ? { versions: [] } : await res.json()
+  } catch (error) {
+    fail(`Could not read ${LIVE}/versions.json to confirm earlier releases are kept: ${error.message}`)
+  }
+  for (const { version: v, integrity } of live.versions) {
+    const file = resolve(SITE, `v${v}`, 'integrity.json')
+    if (!existsSync(file)) fail(`v${v} is live but missing from site/. Restore it first; see docs/RELEASING.md.`)
+    const local = JSON.parse(await readFile(file, 'utf8'))['access-layer.iife.js']
+    if (local !== integrity) fail(`site/v${v} differs from the live v${v}. Restore it first; see docs/RELEASING.md.`)
+  }
 }
 
 /** Every release directory in site/, newest first. */

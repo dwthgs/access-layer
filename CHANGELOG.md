@@ -11,6 +11,10 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+### Fixed
+- **A new release no longer takes earlier ones offline.** Publishing kept
+  only the newest version, which would have broken sites pinned to an older
+  one. The build now stops unless every live release is still included.
 ## [1.1.0] - 2026-11-23
 
 ### Changed

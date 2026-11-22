@@ -14,7 +14,7 @@ export const en = {
   title: 'Accessibility menu',
   openMenu: 'Open the accessibility menu',
   closeMenu: 'Close the accessibility menu',
-  shortcut: 'Ctrl + U',
+  shortcut: 'Alt + A',
   skipToContent: 'Skip to main content',
   language: 'Language',
   translateWorking: 'Translating the page…',

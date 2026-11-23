@@ -28,6 +28,7 @@ const widget: AccessLayerElement = mount()
 widget.setAttribute('color', '#1742C9')
 widget.setAttribute('position', 'bottom-right')
 widget.setAttribute('statement-url', '#privacy')
+widget.setAttribute('profile-colors', 'classic')
 const settings = widget.settings
 
 // ------------------------------------------------------------ descriptions

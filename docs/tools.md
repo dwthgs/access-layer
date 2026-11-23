@@ -39,7 +39,9 @@ Tiles with more than on and off (Bigger text, Text spacing, Line height,
 Contrast, Saturation, Cursor, Text align, Dyslexia friendly) show one bar per
 step while in use and read the chosen option, such as "Low saturation" or
 "Line height 1.5×". On/off tiles keep their name. Every active tile shows a
-check in its corner.
+check in its corner. Bigger text always shows its four bars, and each bar is
+a button: pressing one sets that level, and pressing the chosen level again
+turns it off.
 
 ## Profiles
 

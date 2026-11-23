@@ -71,15 +71,30 @@ describe('step bars', () => {
   })
 
   it('fill one per level for a levelled tile', () => {
-    expect(filled(tile('Bigger text'))).toBe(0)
-    tile('Bigger text').click()
-    expect(filled(tile('Bigger text'))).toBe(1)
-    tile('Bigger text').click()
-    tile('Bigger text').click()
-    expect(filled(tile('Bigger text'))).toBe(3)
-    tile('Bigger text').click()
-    tile('Bigger text').click() // past the last level: back to off
-    expect(filled(tile('Bigger text'))).toBe(0)
+    expect(filled(tile('Text spacing'))).toBe(0)
+    tile('Text spacing').click()
+    expect(filled(tile('Text spacing'))).toBe(1)
+    tile('Text spacing').click()
+    tile('Text spacing').click()
+    expect(filled(tile('Text spacing'))).toBe(3)
+    tile('Text spacing').click() // past the last level: back to off
+    expect(filled(tile('Text spacing'))).toBe(0)
+  })
+
+  it('let Bigger text be set to the level pressed, and off by pressing it again', () => {
+    const group = tile('Bigger text')
+    expect(group.getAttribute('role')).toBe('group')
+    const level = (n: number) => group.querySelector<HTMLButtonElement>(`button[aria-label="Level ${n} of 4"]`)!
+    level(3).click()
+    expect(element.settings.state.textScale).toBe(3)
+    expect(filled(group)).toBe(3)
+    expect(level(3).getAttribute('aria-pressed')).toBe('true')
+    level(1).click()
+    expect(element.settings.state.textScale).toBe(1)
+    expect(level(3).getAttribute('aria-pressed')).toBe('false')
+    level(1).click()
+    expect(element.settings.state.textScale).toBe(0)
+    expect(filled(group)).toBe(0)
   })
 
   it('fill up to the chosen option', () => {
@@ -183,8 +198,8 @@ describe('the accessible name', () => {
   })
 
   it('gives a level out of the total for a levelled tile', () => {
-    element.settings.set({ textScale: 2 })
-    expect(tile('Bigger text').getAttribute('aria-label')).toBe('Bigger text, Level 2 of 4')
+    element.settings.set({ letterSpacing: 2 })
+    expect(tile('Text spacing').getAttribute('aria-label')).toBe('Text spacing, Level 2 of 3')
   })
 
   it('is just the name for an on/off tile; aria-pressed carries the state', () => {

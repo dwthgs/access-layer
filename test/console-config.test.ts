@@ -12,6 +12,12 @@ describe('console configuration', () => {
     for (const attribute of ['data-position="bottom-left"', 'data-mobile-position="top-right"', 'data-button-icon="eye"', 'data-disabled-tools="dictionary"', 'data-fonts-url="https://getaccesslayer.pages.dev/v1/fonts/"', '\n  data-no-skip-link']) expect(code).toContain(attribute)
     expect(code).not.toContain('integrity=')
   })
+  it('passes the classic profile colours on, and leaves the plain default out', () => {
+    expect(widgetAttributes({ ...defaults, profileColors: 'classic' })).toContainEqual(['profile-colors', 'classic'])
+    expect(widgetAttributes(defaults).some(([name]) => name === 'profile-colors')).toBe(false)
+    expect(defaults.profileColors).toBe('none')
+    expect(() => validateConfig({ profileColors: 'brand' })).toThrow()
+  })
   it('pins a version with its integrity hash', () => {
     const code = snippet('script', defaults, { version: '1.2.3', pinned: true, integrity: 'sha384-abc' }, 'https://console.test/')
     expect(code).toContain('src="https://getaccesslayer.pages.dev/v1.2.3/access-layer.iife.js"\n  integrity="sha384-abc" crossorigin="anonymous"\n  data-color')

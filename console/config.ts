@@ -3,7 +3,7 @@ export const positions = ['top-left', 'top-right', 'middle-left', 'middle-right'
 export const defaults = {
   color: '#1742c9', position: 'bottom-left', mobilePosition: 'bottom-left',
   offsetX: 18, offsetY: 18, mobileOffsetX: 18, mobileOffsetY: 18,
-  icon: 'accessibility', size: 'medium', defaultLanguage: '',
+  icon: 'accessibility', size: 'medium', profileColors: 'none', defaultLanguage: '',
   statementUrl: '', statementText: '', fontsUrl: '', dictionaryUrl: '',
   disabledTools: [] as ToolId[], profiles: true, trigger: '', triggerId: '', skipLink: true,
 }
@@ -33,6 +33,7 @@ export function validateConfig(input: unknown): WidgetConfig {
   for (const key of ['offsetX', 'offsetY', 'mobileOffsetX', 'mobileOffsetY'] as const) if (!Number.isInteger(c[key]) || c[key] < 0 || c[key] > 200) throw new ValidationError('Offsets must be between 0 and 200 pixels.')
   if (!['accessibility', 'wheelchair', 'eye'].includes(c.icon)) throw new ValidationError('Choose a supported button icon.')
   if (!['small', 'medium', 'large'].includes(c.size)) throw new ValidationError('Choose a supported button size.')
+  if (!['none', 'classic'].includes(c.profileColors)) throw new ValidationError('Choose a supported profile colour style.')
   if (typeof c.defaultLanguage !== 'string' || !['', 'en', 'es'].includes(c.defaultLanguage)) throw new ValidationError('Choose a supported default language.')
   if (typeof c.statementText !== 'string' || c.statementText.length > 80) throw new ValidationError('Statement link text must be at most 80 characters.')
   if (!Array.isArray(c.disabledTools) || c.disabledTools.length > tools.length || c.disabledTools.some(id => !tools.some(tool => tool.id === id))) throw new ValidationError('Choose supported widget features.')
@@ -64,7 +65,7 @@ export function widgetAttributes(c: WidgetConfig): [string, string][] {
     color: c.color, position: c.position, 'mobile-position': unless(c.mobilePosition, c.position),
     'offset-x': unless(c.offsetX, defaults.offsetX), 'offset-y': unless(c.offsetY, defaults.offsetY),
     'mobile-offset-x': unless(c.mobileOffsetX, c.offsetX), 'mobile-offset-y': unless(c.mobileOffsetY, c.offsetY),
-    'button-icon': unless(c.icon, defaults.icon), 'button-size': unless(c.size, defaults.size), 'default-language': c.defaultLanguage,
+    'button-icon': unless(c.icon, defaults.icon), 'button-size': unless(c.size, defaults.size), 'profile-colors': unless(c.profileColors, defaults.profileColors), 'default-language': c.defaultLanguage,
     'disabled-tools': c.disabledTools.join(','), 'statement-url': c.statementUrl, 'statement-text': c.statementText,
     'fonts-url': c.fontsUrl, 'dictionary-url': c.dictionaryUrl, trigger: c.trigger, 'trigger-id': c.triggerId,
   }).filter(([, value]) => value)

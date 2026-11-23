@@ -86,13 +86,24 @@ test('Line height changes the spacing from the very first step', async ({ page }
   expect(await spacing()).toBeCloseTo(original, 2)
 })
 
-test('Bigger text fills a bar per level', async ({ page }) => {
-  const bigger = tile(page, 'Bigger text')
-  await expect(bigger.locator('.mla-step')).toHaveCount(4)
-  await bigger.click()
-  await bigger.click()
-  await expect(bigger).toHaveAccessibleName('Bigger text, Level 2 of 4')
+test('Bigger text goes to the level pressed, and each level makes the text bigger', async ({ page }) => {
+  const bigger = widget(page).getByRole('group', { name: 'Bigger text' })
+  const level = (n: number) => bigger.getByRole('button', { name: `Level ${n} of 4`, exact: true })
+  const size = () => page.locator('main p').first().evaluate((p) => parseFloat(getComputedStyle(p).fontSize))
+  const base = await size()
+  await level(2).click()
+  await expect(level(2)).toHaveAttribute('aria-pressed', 'true')
   expect(await painted(bigger)).toEqual([true, true, false, false])
+  const two = await size()
+  expect(two).toBeGreaterThan(base)
+  await level(4).click()
+  expect(await painted(bigger)).toEqual([true, true, true, true])
+  expect(await size()).toBeGreaterThan(two)
+  await level(1).click()
+  expect(await painted(bigger)).toEqual([true, false, false, false])
+  await level(1).click() // the chosen level again: off
+  expect(await painted(bigger)).toEqual([false, false, false, false])
+  expect(await size()).toBeCloseTo(base, 1)
 })
 
 test('an active tile shows the check, an inactive one does not', async ({ page }) => {
@@ -169,7 +180,6 @@ const EVERY_STEP: [string, number][] = [
   ['Contrast', 3],
   ['Smart contrast', 1],
   ['Highlight links', 1],
-  ['Bigger text', 4],
   ['Text spacing', 3],
   ['Pause animations', 1],
   ['Hide images', 1],

@@ -25,6 +25,7 @@ Set these as `data-*` on the script tag, or as attributes on `<access-layer>`.
 | `mobile-offset-x`, `mobile-offset-y` | `data-mobile-offset-x`, `data-mobile-offset-y` | same as the offsets | The same, on screens narrower than 768 px |
 | `button-icon` | `data-button-icon` | `accessibility` | `accessibility`, `wheelchair` or `eye` |
 | `button-size` | `data-button-size` | `medium` | `small`, `medium` or `large` |
+| `profile-colors` | `data-profile-colors` | `none` | `none`: plain profile cards, like the tools. `classic`: yellow, lilac, mint and coral |
 | `default-language` | `data-default-language` | the page's language | `en` or `es` for the widget's own labels |
 | `disabled-tools` | `data-disabled-tools` | none | Comma-separated tool IDs to leave out |
 | `no-profiles` | `data-no-profiles` | profiles on | Hide the ready-made profiles |

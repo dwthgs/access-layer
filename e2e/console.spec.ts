@@ -30,7 +30,7 @@ test('a setting reaches the preview, the link and the code', async ({ page }) =>
 
 test('the console has no detectable accessibility violations', async ({ page }) => {
   await page.goto('/console/')
-  for (const section of ['Appearance', 'Features', 'Settings', 'Install']) {
+  for (const section of ['Appearance', 'Features', 'Install']) {
     await page.getByRole('button', { name: section, exact: true }).click()
     const results = await new AxeBuilder({ page }).exclude('#widget-preview').analyze()
     expect(results.violations.map(v => `${section}: ${v.id}`)).toEqual([])

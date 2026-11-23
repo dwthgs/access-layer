@@ -11,6 +11,8 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-23
+
 ### Changed
 - **Plain profile cards by default.** Profile cards now match the tool
   tiles. `data-profile-colors="classic"`, or Classic under Profile colors in

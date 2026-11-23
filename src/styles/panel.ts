@@ -20,11 +20,11 @@ export const PANEL_CSS = `
   --mla-ink: #17130f;
   --mla-ink-muted: #6b6156;
   --mla-line: #e4dcd0;
-  /* Profile cards. Fixed, with fixed dark text: they do not follow the accent. */
-  --mla-hue-1: #ffd84d;
-  --mla-hue-2: #c4b6ff;
-  --mla-hue-3: #8fe3c4;
-  --mla-hue-4: #ffb39c;
+  /* Profile cards are plain by default, like the tool tiles. */
+  --mla-hue-1: var(--mla-bg-sunken);
+  --mla-hue-2: var(--mla-bg-sunken);
+  --mla-hue-3: var(--mla-bg-sunken);
+  --mla-hue-4: var(--mla-bg-sunken);
   --mla-hue-ink: #17130f;
   --mla-focus: #ff7a00;
   --mla-radius: 14px;
@@ -32,6 +32,13 @@ export const PANEL_CSS = `
   --mla-trigger-size: var(--mla-trigger-base, 56px);
   --mla-scale: 1;
   --mla-font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+/* The original four colours, for a site that wants them. */
+:host([profile-colors="classic"]) {
+  --mla-hue-1: #ffd84d;
+  --mla-hue-2: #c4b6ff;
+  --mla-hue-3: #8fe3c4;
+  --mla-hue-4: #ffb39c;
 }
 :host([data-oversized]) {
   --mla-panel-width: 420px;
@@ -326,8 +333,16 @@ button { font: inherit; color: inherit; }
 }
 .mla-tile[data-tile="textScale"] .mla-tile-label { grid-row: 1 / span 2; }
 .mla-tile[data-tile="textScale"] .mla-steps { grid-column: 3; grid-row: 1 / span 2; gap: 5px; margin-left: 6px; visibility: visible; }
-.mla-tile[data-tile="textScale"] .mla-step { height: 8px; border-radius: 4px; background: color-mix(in srgb, var(--mla-bg) 24%, var(--mla-ink)); }
-.mla-tile[data-tile="textScale"] .mla-step[data-on] { background: var(--mla-bg); }
+.mla-tile[data-tile="textScale"] .mla-step { height: 8px; border-radius: 4px; background-color: color-mix(in srgb, var(--mla-bg) 24%, var(--mla-ink)); }
+.mla-tile[data-tile="textScale"] .mla-step[data-on] { background-color: var(--mla-bg); }
+/* Each bar is a button that looks exactly like the bar. An invisible layer
+   around it makes the press target taller (WCAG 2.5.8) without changing it. */
+button.mla-step { position: relative; padding: 0; margin: 0; border: 0; cursor: pointer; }
+button.mla-step::before { content: ""; position: absolute; inset: -12px 0; }
+button.mla-step:focus-visible { outline: 3px solid var(--mla-focus); outline-offset: 4px; }
+.mla-tile[data-tile="textScale"] { cursor: default; }
+.mla-tile[data-tile="textScale"]:active { transform: none; }
+.mla-tile[data-tile="textScale"][data-on] .mla-tile-check { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .mla-tile, .mla-profile, .mla-tile-check, .mla-profiles-caret { transition: none; }
   .mla-tile:active, .mla-profile:active { transform: none; }

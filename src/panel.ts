@@ -40,6 +40,8 @@ interface Tile {
   levels?: number
   /** Shown after the name for each level above off: "Line height 1.5×". */
   levelNames?: string[]
+  /** Each level is its own button, so a visitor picks one directly. */
+  pickLevel?: boolean
   action?: () => void
   available?: () => boolean
 }
@@ -71,7 +73,7 @@ export function buildPanel(
   // ------------------------------------------------------------------ tiles
   const tiles: Tile[] = [
     // First: the panel draws it as a wide bar above the other tools.
-    { id: 'textScale', labelKey: 'biggerText', iconName: 'text', levels: 4 },
+    { id: 'textScale', labelKey: 'biggerText', iconName: 'text', levels: 4, pickLevel: true },
     {
       id: 'screenReader',
       labelKey: 'screenReader',
@@ -162,11 +164,34 @@ export function buildPanel(
   ]
 
   const grid = h('div', { class: 'mla-grid' })
-  const tileNodes = new Map<Tile, { button: HTMLButtonElement; label: HTMLElement; steps: HTMLElement[] }>()
+  const tileNodes = new Map<Tile, { button: HTMLElement; label: HTMLElement; steps: HTMLElement[] }>()
 
   for (const tile of tiles) {
     if (!controller.isToolEnabled(tile.id)) continue
     const label = h('span', { class: 'mla-tile-label', text: t(tile.labelKey) })
+    if (tile.pickLevel && tile.levels) {
+      // A group of level buttons, not one button that cycles: the bar a
+      // visitor presses is the level they get, and pressing it again turns
+      // the tool off.
+      const levels = tile.levels
+      const steps = Array.from({ length: levels }, (_, i) =>
+        h('button', {
+          class: 'mla-step',
+          type: 'button',
+          'aria-label': t('levelOf', { n: i + 1, total: levels }),
+          onclick: () => pickLevel(tile, i + 1),
+        }),
+      )
+      const group = h('div', { class: 'mla-tile', role: 'group', 'aria-label': t(tile.labelKey), 'data-tile': tile.id }, [
+        h('span', { class: 'mla-tile-check', 'aria-hidden': 'true', html: icon('check') }),
+        h('span', { class: 'mla-tile-icon', html: icon(tile.iconName) }),
+        label,
+        h('span', { class: 'mla-steps' }, steps),
+      ])
+      grid.append(group)
+      tileNodes.set(tile, { button: group, label, steps })
+      continue
+    }
     // One bar per step above off, for any tile that
     // has more than on and off. Decorative: the state is in the aria-label.
     const steps = Array.from({ length: stepCount(tile) }, () => h('span', { class: 'mla-step' }))
@@ -188,6 +213,13 @@ export function buildPanel(
     }
     grid.append(button)
     tileNodes.set(tile, { button, label, steps })
+  }
+
+  function pickLevel(tile: Tile, level: number): void {
+    const key = tile.id as keyof State
+    const next = Number(controller.state[key] ?? 0) === level ? 0 : level
+    controller.set({ [key]: next } as unknown as Partial<State>)
+    announce(`${t(tile.labelKey)}: ${next === 0 ? t('optionOff') : t('level', { n: next })}`)
   }
 
   function activate(tile: Tile): void {
@@ -501,6 +533,14 @@ export function buildPanel(
       if (tile.action) continue
       const key = tile.id as keyof State
       const current = s[key]
+
+      if (tile.pickLevel) {
+        const level = Number(current ?? 0)
+        nodes.button.toggleAttribute('data-on', level > 0)
+        fillSteps(nodes.steps, level)
+        nodes.steps.forEach((step, i) => step.setAttribute('aria-pressed', i + 1 === level ? 'true' : 'false'))
+        continue
+      }
 
       if (tile.levels) {
         const level = Number(current ?? 0)

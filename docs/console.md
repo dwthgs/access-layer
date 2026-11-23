@@ -6,14 +6,13 @@ The console is a static page with no account and no server. It shows the
 widget on a sample page while you set it up, then gives you the code for your
 platform. Run it locally with `npm run dev` and open `/console/`.
 
-## The four steps
+## The three steps
 
-1. **Appearance.** Icon, size, colour, desktop and mobile position, language,
-   or your own button.
-2. **Features.** Which tools and profiles visitors can use.
-3. **Settings.** The accessibility statement link, the skip link and advanced
-   endpoints.
-4. **Install.** Choose how updates arrive, pick your platform and copy the
+1. **Appearance.** The floating button (icon, size, desktop and mobile
+   position) or your own button, the colours and the language.
+2. **Features.** Which tools and profiles visitors can use, the skip link,
+   the accessibility statement link, and your own fonts or dictionary.
+3. **Install.** Choose how updates arrive, pick your platform and copy the
    code.
 
 ## Platforms

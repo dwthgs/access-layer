@@ -60,12 +60,13 @@ describe('position', () => {
   })
 
   it('reads every setting from the script tag', async () => {
-    document.body.insertAdjacentHTML('beforeend', '<script data-access-layer data-position="top-right" data-button-size="large" data-disabled-tools="dictionary" data-no-profiles></script>')
+    document.body.insertAdjacentHTML('beforeend', '<script data-access-layer data-position="top-right" data-button-size="large" data-profile-colors="classic" data-disabled-tools="dictionary" data-no-profiles></script>')
     vi.resetModules()
     await import('../src/index')
     const element = document.querySelector('access-layer')!
     expect(element.getAttribute('position')).toBe('top-right')
     expect(element.getAttribute('button-size')).toBe('large')
+    expect(element.getAttribute('profile-colors')).toBe('classic')
     expect(element.getAttribute('disabled-tools')).toBe('dictionary')
     expect(element.hasAttribute('no-profiles')).toBe(true)
     expect(element.hasAttribute('no-skip-link')).toBe(false)

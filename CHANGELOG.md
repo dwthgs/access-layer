@@ -11,6 +11,18 @@ its version and date. See [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+### Changed
+- **Plain profile cards by default.** Profile cards now match the tool
+  tiles. `data-profile-colors="classic"`, or Classic under Profile colors in
+  the console, keeps the yellow, lilac, mint and coral.
+- **Text size goes to the level you press.** Each bar on Bigger text is its
+  own button, where a press anywhere used to step up one level. Pressing the
+  chosen level again turns it off.
+- **A shorter console.** Three steps instead of four: the Settings step's
+  options moved into Appearance and Features. Appearance asks whether you use
+  the floating button or your own, and shows only what that choice needs, with
+  the preview beside the controls.
+
 ## [1.1.2] - 2026-11-23
 
 ### Added

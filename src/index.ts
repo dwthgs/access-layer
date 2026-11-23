@@ -84,7 +84,7 @@ export interface MountOptions {
 }
 
 /** Settings the script tag passes through as attributes of the same name: `data-button-size="large"`. */
-const PASSED = ['mobile-position', 'offset-x', 'offset-y', 'mobile-offset-x', 'mobile-offset-y', 'button-icon', 'button-size', 'default-language', 'disabled-tools', 'statement-text', 'no-skip-link', 'no-profiles']
+const PASSED = ['mobile-position', 'offset-x', 'offset-y', 'mobile-offset-x', 'mobile-offset-y', 'button-icon', 'button-size', 'profile-colors', 'default-language', 'disabled-tools', 'statement-text', 'no-skip-link', 'no-profiles']
 
 function optionsFromScript(): MountOptions | null {
   const script =

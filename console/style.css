@@ -131,8 +131,6 @@ dd{margin:0;text-align:right;color:var(--ink);font-weight:700;overflow-wrap:anyw
 .preview-canvas.mobile .browser-chrome{height:26px}
 .preview-canvas.mobile iframe{height:590px}
 .preview-caption{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;font-size:10px;color:var(--muted)}
-.preview-caption button{border:0;background:transparent;padding:4px 0;min-height:32px;color:var(--blue);font-size:11px}
-.preview-caption svg{width:12px;height:12px}
 .preview-column>.hint{font-size:10px;margin-top:6px;max-width:500px}
 .feature-layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:25px}
 .feature-toolbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:18px}
@@ -158,16 +156,11 @@ input:checked+.switch:after{transform:translateX(14px)}
 input:focus-visible+.switch{outline:3px solid #3f63d6;outline-offset:3px}
 .toggle-row{position:relative;display:flex;gap:18px;align-items:center;justify-content:space-between;cursor:pointer;padding:15px 0}
 .toggle-row small{font-weight:400}
-.feature-aside p,.settings-layout aside p{font-size:12px}
+.feature-aside p{font-size:12px}
 .feature-aside .surface{padding:22px}
 .quiet-note{display:flex;align-items:flex-start;gap:10px;padding:5px 10px;color:var(--muted)}
 .quiet-note svg{width:17px;height:17px;margin-top:3px}
 .quiet-note p{font-size:11px;line-height:1.8}
-.settings-layout{display:grid;grid-template-columns:minmax(0,650px) minmax(230px,1fr);gap:28px}
-.settings-sections .surface{padding:28px}
-.settings-sections .surface>p{font-size:12px}
-.settings-sections .field:last-child{margin-bottom:0}
-.settings-sections .toggle-row{padding-top:0;padding-bottom:23px;margin-bottom:20px;border-bottom:1px solid var(--line)}
 .installation-layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:25px}
 .install-step{display:flex;gap:18px;padding:27px}
 .install-step>div{min-width:0;flex:1}
@@ -200,7 +193,6 @@ input:focus-visible+.switch{outline:3px solid #3f63d6;outline-offset:3px}
 .installation-layout{grid-template-columns:minmax(0,1fr) 230px;gap:20px}
 .install-step{padding:22px;gap:13px}
 .preview-caption{align-items:flex-start;flex-direction:column;gap:2px}
-.settings-layout{grid-template-columns:minmax(0,1fr) 230px}
 .control-label small{font-size:8px}
 }
 
@@ -213,7 +205,7 @@ input:focus-visible+.switch{outline:3px solid #3f63d6;outline-offset:3px}
 .preview-canvas{padding:28px}
 .preview-canvas .browser-frame{max-width:720px}
 .preview-caption{flex-direction:row;align-items:center}
-.installation-layout,.settings-layout{grid-template-columns:1fr}
+.installation-layout{grid-template-columns:1fr}
 .installation-summary{position:static}
 .feature-layout{grid-template-columns:1fr}
 .feature-grid{grid-template-columns:1fr 1fr}
@@ -248,7 +240,6 @@ input:focus-visible+.switch{outline:3px solid #3f63d6;outline-offset:3px}
 .feature-row strong{font-size:13px}
 .feature-toolbar{align-items:flex-start;flex-direction:column;gap:10px}
 .feature-toolbar button{font-size:11px}
-.settings-sections .surface{padding:23px}
 .surface{padding:23px}
 .installation-layout{gap:0}
 .install-step{display:block;padding:23px}
@@ -285,25 +276,80 @@ input:focus-visible+.switch{outline:3px solid #3f63d6;outline-offset:3px}
 #install-steps{margin:0 0 6px;padding-left:20px;font-size:13px;display:grid;gap:6px}
 .site-tabs .step-number{width:20px;height:20px;font-size:11px;background:var(--surface-2);color:var(--muted)}
 .site-tabs button[aria-current=step] .step-number{background:var(--blue);color:white}
-.step-count{margin:0 0 4px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .section-title h2:focus{outline:none}
-.step-nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+/* Stays in view at the bottom of the screen, so Next never needs a scroll. */
+.step-nav{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding:12px 0;border-top:1px solid var(--line);position:sticky;bottom:0;z-index:2;background:#fffdf8}
 .platform-tabs{display:flex;margin:6px 0 18px;overflow-x:auto;box-shadow:inset 0 -1px 0 var(--line-2)}
 .platform-tabs button{flex:none;min-height:42px;padding:8px 13px;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;color:var(--muted);font-size:13px;outline-offset:-3px}
 .platform-tabs button:hover{background:none;color:var(--ink)}
 .platform-tabs button[aria-pressed=true]{color:var(--blue);border-bottom-color:var(--blue)}
 .platform-tabs i{flex:none;width:1px;margin:11px 9px;background:var(--line-2)}
 /* Grid and flex children shrink to the screen instead of to their longest line. */
-.installation-layout>*,.config-layout>*,.feature-layout>*,.settings-layout>*{min-width:0}
+.installation-layout>*,.config-layout>*,.feature-layout>*{min-width:0}
 @media(max-width:980px){
 /* The preview comes first, so a change above the fold is visible without scrolling past every control. */
 .preview-column{order:-1}
 .browser-frame iframe,.preview-canvas.mobile iframe{height:380px}
 }
 @media(max-width:700px){
-.site-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;width:100%;padding:4px;border-radius:18px;margin:22px 0;overflow:visible}
+.site-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;width:100%;padding:4px;border-radius:18px;margin:22px 0;overflow:visible}
 .site-tabs button{flex-direction:column;gap:4px;padding:8px 2px;border-radius:14px;font-size:11px}
 .page-heading>button{min-height:34px;padding:6px 12px;font-size:12px}
 .browser-frame iframe,.preview-canvas.mobile iframe{height:340px}
 .step-nav button{flex:1}
 }
+.profile-colors-picker { margin-top: 22px; }
+[data-opener="own"]{margin-top:14px}
+.preview-toolbar .device-toggle{margin-left:auto}
+.preview-toolbar #start-over{margin-left:10px;min-height:37px;padding:6px 14px;font-size:12px}
+/* Above the one-column breakpoint: two columns for the whole Appearance
+   page. The preview starts beside the title and stays in view. The cards
+   keep their width; the wrappers step aside so their children share a grid. */
+@media(min-width:981px){
+#main:has(.config-layout){display:grid;grid-template-columns:minmax(265px,310px) minmax(0,1fr);column-gap:20px;align-items:start}
+#main:has(.config-layout)>*,#main:has(.config-layout) .section-title,#main:has(.config-layout) .controls-column{grid-column:1}
+#main:has(.config-layout) #section-content,#main:has(.config-layout) #config-form,#main:has(.config-layout) .config-layout{display:contents}
+#main:has(.config-layout) .preview-column{grid-column:2;grid-row:1/span 5;top:91px}
+#main:has(.config-layout) .step-nav{grid-column:1/-1}
+/* Room for the step buttons: a sticky preview stops this far above the page end. */
+#main:has(.config-layout) .preview-column{margin-bottom:96px}
+/* The step tabs fit the column as four small steps, as on phones. */
+#main:has(.config-layout) .site-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;width:100%;padding:4px;border-radius:18px;overflow:visible}
+#main:has(.config-layout) .site-tabs button{flex-direction:column;gap:4px;padding:8px 2px;border-radius:14px;font-size:11px}
+}
+@media(min-width:1201px){#main:has(.config-layout){grid-template-columns:minmax(290px,350px) minmax(0,1fr);column-gap:28px}}
+@media(min-width:1500px){#main:has(.config-layout){grid-template-columns:370px minmax(0,1fr)}}
+@media(min-width:981px){
+/* The preview fills the screen's height beside the controls. */
+#main:has(.config-layout) .preview-column{display:flex;flex-direction:column;height:calc(100vh - 167px);min-height:400px}
+#main:has(.config-layout) .preview-toolbar{padding-bottom:10px}
+#main:has(.config-layout) .preview-canvas{flex:1;min-height:0;padding:12px;align-items:stretch}
+#main:has(.config-layout) .browser-frame{display:flex;flex-direction:column}
+#main:has(.config-layout) .browser-frame iframe{flex:1;height:auto;min-height:0}
+#main:has(.config-layout) .preview-canvas.mobile{justify-content:center}
+#main:has(.config-layout) .preview-caption{margin-top:8px}
+#main:has(.config-layout) .preview-column>.hint{margin-top:2px}
+/* Tighter controls: less padding, smaller gaps, no empty tail in a card. */
+#main:has(.config-layout) .page-heading{margin-bottom:16px}
+#main:has(.config-layout) .site-tabs{margin:0 0 18px}
+#main:has(.config-layout) .section-title{margin-bottom:14px}
+#main:has(.config-layout) .section-title h2{font-size:20px}
+#main:has(.config-layout) .controls-column .surface{padding:16px 18px;margin-bottom:12px}
+#main:has(.config-layout) .controls-column h3{margin-bottom:3px}
+#main:has(.config-layout) .block-heading p{margin-bottom:12px}
+#main:has(.config-layout) .controls-column .field{margin-bottom:12px}
+#main:has(.config-layout) .controls-column .segmented,#main:has(.config-layout) .controls-column .icon-picker{margin-bottom:16px}
+#main:has(.config-layout) .controls-column .surface>:last-child,#main:has(.config-layout) .controls-column .segmented:last-child{margin-bottom:0}
+}
+@media(min-width:981px){#main:has(.config-layout) .controls-column .segmented:has(+[data-opener]){margin-bottom:0}}
+@media(min-width:981px){
+/* Smaller choices: shorter segments and icon tiles. */
+#main:has(.config-layout) .controls-column .segmented label>span{padding:5px 4px;font-size:11.5px;line-height:1.25}
+#main:has(.config-layout) .controls-column .segmented small{font-size:9.5px}
+#main:has(.config-layout) .controls-column .icon-picker{gap:6px}
+#main:has(.config-layout) .controls-column .icon-picker label>span{flex-direction:row;gap:6px;padding:7px 4px;border-radius:999px}
+#main:has(.config-layout) .controls-column .icon-picker svg{width:17px;height:17px}
+#main:has(.config-layout) .controls-column .icon-picker small{font-size:10.5px}
+#main:has(.config-layout) .controls-column legend,#main:has(.config-layout) .controls-column .color-label{margin-bottom:6px}
+}
+@media(min-width:981px){#main:has(.config-layout) .controls-column .icon-picker label{flex:auto}#main:has(.config-layout) .controls-column .icon-picker label>span{padding:7px 10px;white-space:nowrap}}
